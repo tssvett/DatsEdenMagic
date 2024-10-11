@@ -5,42 +5,35 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class PixelVisualizer extends JPanel {
-    private BufferedImage image;
-    private int circleX = 50; // Начальная позиция круга по X
-    private int circleY = 50; // Начальная позиция круга по Y
-    private final int circleRadius = 50; // Радиус круга
+    private ArrayList<DrawableObject> objects;
     private final int scaleFactor = 2; // Масштаб увеличения
 
     public PixelVisualizer(int width, int height) {
-        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        drawPixels();
+        objects = new ArrayList<>();
+        drawInitialObjects();
 
         // Добавление слушателя для отслеживания нажатий мыши
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                // Обновление позиции круга на координаты клика с учетом масштаба
-                circleX = e.getX() / scaleFactor; // Делим на масштаб
-                circleY = e.getY() / scaleFactor; // Делим на масштаб
-                System.out.println("Circle moved to: (" + circleX + ", " + circleY + ")");
-                repaint(); // Перерисовка панели
+                // Обновление позиции последнего объекта на координаты клика с учетом масштаба
+                if (!objects.isEmpty()) {
+                    DrawableObject lastObject = objects.get(objects.size() - 1);
+                    lastObject.setPosition(e.getX() / scaleFactor, e.getY() / scaleFactor);
+                    repaint(); // Перерисовка панели
+                }
             }
         });
     }
 
-    private void drawPixels() {
-        // Установка цвета пикселей
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                if ((x & 1) == 1 || (y & 1) == 1) {
-                    image.setRGB(x, y, Color.GRAY.getRGB());
-                } else {
-                    image.setRGB(x, y, Color.WHITE.getRGB()); // Остальные пиксели белые
-                }
-            }
-        }
+    private void drawInitialObjects() {
+        // Создание нескольких объектов с различными радиусами и цветами
+        objects.add(new DrawableObject(100 / scaleFactor, 100 / scaleFactor, 20, Color.RED, 40, Color.BLUE));
+        objects.add(new DrawableObject(200 / scaleFactor, 200 / scaleFactor, 30, Color.GREEN, 60, Color.YELLOW));
+        objects.add(new DrawableObject(300 / scaleFactor, 300 / scaleFactor, 25, Color.MAGENTA, 50, Color.CYAN));
     }
 
     @Override
@@ -55,11 +48,10 @@ public class PixelVisualizer extends JPanel {
         // Масштабирование графики
         g2d.scale(scaleFactor, scaleFactor); // Увеличение масштаба в 2 раза
 
-        g2d.drawImage(image, 0, 0, null);
-
-        // Рисуем круг в новой позиции с учетом масштаба
-        g2d.setColor(Color.BLUE);
-        g2d.fillOval(circleX - circleRadius / 2, circleY - circleRadius / 2, circleRadius, circleRadius);
+        // Рисуем все объекты
+        for (DrawableObject obj : objects) {
+            obj.draw(g2d);
+        }
     }
 
     public static void main(String[] args) {
