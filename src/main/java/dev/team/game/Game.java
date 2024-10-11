@@ -14,7 +14,7 @@ import static dev.team.utils.FileUtils.getNameFile;
 @RequiredArgsConstructor
 public class Game {
     private final GameRenderer renderer;
-    private final GameController controller;
+    private final GameCameraController controller;
     private final GameAPI gameAPI;
 
 
@@ -38,8 +38,11 @@ public class Game {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
+        controller.requestFocusInWindow();
 
-        frame.add(renderer);
+
         frame.add(controller);
+        frame.add(renderer);
+
     }
 }

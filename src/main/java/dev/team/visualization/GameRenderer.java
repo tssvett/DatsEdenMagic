@@ -1,6 +1,7 @@
 package dev.team.visualization;
 
 import dev.team.visualization.objectsdraw.DrawableObject;
+import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,14 @@ import java.util.List;
 
 public class GameRenderer extends JPanel {
     private List<DrawableObject> objects = new ArrayList<>();
-    private final double SCALE_FACTOR = 0.5;
+
+    // Getter for scale factor
+    @Getter
+    private double scaleFactor = 0.5; // Default scale factor
+
+    // Camera position variables
+    private double cameraX = 0;
+    private double cameraY = 0;
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -18,32 +26,42 @@ public class GameRenderer extends JPanel {
 
         setupBackground(g2d);
 
-        scaleObjects(g2d);
+        // Translate graphics context to simulate camera movement
+        g2d.translate(cameraX, cameraY);
 
+        scaleObjects(g2d);
         drawAllObjects(g2d);
     }
 
-
     public void draw(List<DrawableObject> updatedObjects) {
-        this.objects = updatedObjects; // Обновление списка объектов
-        repaint(); // Перерисовка после обновления объектов
+        this.objects = updatedObjects; // Update object list
+        repaint(); // Repaint after updating objects
     }
 
     private void drawAllObjects(Graphics2D g2d) {
-        // Рисуем все объекты
         for (DrawableObject obj : objects) {
             obj.draw(g2d);
         }
     }
 
     private void scaleObjects(Graphics2D g2d) {
-        // Масштабирование графики
-        g2d.scale(SCALE_FACTOR, SCALE_FACTOR); // Увеличение масштаба в SCALE_FACTOR раз
+        g2d.scale(scaleFactor, scaleFactor); // Apply scaling to graphics context
     }
 
     private void setupBackground(Graphics2D g2d) {
-        // Установка серого фона
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.fillRect(0, 0, getWidth(), getHeight());
+    }
+
+    public void setScaleFactor(double newScaleFactor) {
+        this.scaleFactor = newScaleFactor;
+        repaint(); // Repaint after changing scale factor
+    }
+
+    // Method to move the camera
+    public void moveCamera(double deltaX, double deltaY) {
+        this.cameraX += deltaX;
+        this.cameraY += deltaY;
+        repaint(); // Repaint after moving the camera
     }
 }

@@ -2,7 +2,7 @@ package dev.team;
 
 import dev.team.config.WebClientCreator;
 import dev.team.game.Game;
-import dev.team.game.GameController;
+import dev.team.game.GameCameraController;
 import dev.team.integration.GameAPI;
 import dev.team.visualization.GameRenderer;
 import lombok.experimental.UtilityClass;
@@ -19,8 +19,8 @@ public class Main {
         WebClient webClient = new WebClientCreator(TEST_URL, TOKEN).webClient();
 
         GameAPI gameAPI = new GameAPI(webClient);
-        GameController controller = new GameController();
         GameRenderer renderer = new GameRenderer();
+        GameCameraController controller = new GameCameraController(renderer);
 
 
         Game game = new Game(renderer, controller, gameAPI);
