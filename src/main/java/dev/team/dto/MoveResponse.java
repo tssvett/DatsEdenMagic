@@ -1,10 +1,11 @@
 package dev.team.dto;
 
+import dev.team.models.TransportResponse;
 import dev.team.models.Vector2D;
 import dev.team.models.Anomaly;
 import dev.team.models.Bounty;
 import dev.team.models.Enemy;
-import dev.team.models.Transport;
+import dev.team.models.TransportRequest;
 
 import java.util.List;
 
@@ -20,12 +21,12 @@ public record MoveResponse(
         Double maxAccel,
         Double maxSpeed,
         String name,
-        Double points,
+        Integer points,
         Integer reviveTimeoutSec,
         Integer shieldCooldownSec,
         Integer shieldTimeMs,
         Integer transportRadius,
-        List<Transport> transports,
+        List<TransportResponse> transports,
         List<Enemy> wantedList
 ) {
 }

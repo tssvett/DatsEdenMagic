@@ -1,6 +1,6 @@
 package dev.team.models;
 
-public record Vector2D(double x, double y) {
+public record Vector2D(Double x, Double y) {
 
     public Vector2D normalize() {
         double length = length();

@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Transport {
+public class TransportRequest {
     private Vector2D acceleration;
     private boolean activateShield;
     private final Vector2D attack;

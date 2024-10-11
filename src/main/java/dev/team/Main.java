@@ -12,14 +12,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class Main {
     public static void main(String[] args) {
         String token = System.getenv().get("TOKEN");
-        String url = "https://games.datsteam.dev";
-        WebClient webClient = new WebClientCreator(url, token).webClient();
+        String prodUrl = "https://games.datsteam.dev";
+        String testUrl = "https://games-test.datsteam.dev";
+
+
+        WebClient webClient = new WebClientCreator(testUrl, token).webClient();
 
         GameAPI gameAPI = new GameAPI(webClient);
 
         MoveResponse moveResponse = gameAPI.sendMoveRequest();
-
         log.info("{}", moveResponse);
+        //log.info("{}", gameAPI.sendRoundRequest());
 
 
     }

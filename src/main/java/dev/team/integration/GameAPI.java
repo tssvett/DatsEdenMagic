@@ -38,6 +38,7 @@ public class GameAPI {
         return webClient
                 .post()
                 .uri("/play/magcarp/player/move")
+                .bodyValue("{}")
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, clientResponse -> {
                     // Получаем тип контента
@@ -54,7 +55,6 @@ public class GameAPI {
                                     return Mono.error(new RuntimeException(errorMessage));
                                 });
                     } else {
-                        // Если тип контента не текстовый, пытаемся десериализовать в ErrorDetails
                         return clientResponse.bodyToMono(ErrorDetails.class)
                                 .flatMap(errorDetails -> {
                                     log.error("Error details: {}", errorDetails);
@@ -62,9 +62,19 @@ public class GameAPI {
                                 });
                     }
                 })
-                .bodyToMono(new ParameterizedTypeReference<MoveResponse>() {})
+                .bodyToMono(new ParameterizedTypeReference<MoveResponse>() {
+                })
                 .doOnNext(response -> log.info("Successfully got response"))
                 .doOnError(e -> log.error("Error fetching response: {}", e.getMessage()))
+                .block();
+    }
+
+    public String sendRoundRequest() {
+        return webClient
+                .get()
+                .uri("/rounds/magcarp/")
+                .retrieve()
+                .bodyToMono(String.class)
                 .block();
     }
 
