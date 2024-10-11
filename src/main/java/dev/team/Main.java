@@ -22,7 +22,7 @@ public class Main {
 
         MoveResponse moveResponse = gameAPI.sendMoveRequest();
 
-        //logic
+
 
 
 
