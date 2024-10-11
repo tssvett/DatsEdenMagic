@@ -29,6 +29,7 @@ public class Main {
 
         JFrame frame = new JFrame("Game");
         GameRenderer renderer = new GameRenderer();
+        frame.add(renderer);
         GameLoop gameLoop = new GameLoop(renderer,gameAPI);
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
