@@ -5,7 +5,6 @@ import dev.team.models.Anomaly;
 import dev.team.models.Bounty;
 import dev.team.models.Enemy;
 import dev.team.models.TransportResponse;
-import dev.team.visualization.DrawableObject;
 
 import java.awt.*;
 import java.util.ArrayList;

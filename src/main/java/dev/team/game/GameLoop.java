@@ -5,8 +5,11 @@ import dev.team.integration.GameAPI;
 import dev.team.serialization.MoveResponseJsonService;
 import dev.team.visualization.GameRenderer;
 import dev.team.visualization.objectsdraw.ConvertToListDrawObjects;
+import dev.team.visualization.objectsdraw.DrawableObject;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class GameLoop {
     private final GameRenderer renderer;
@@ -25,11 +28,13 @@ public class GameLoop {
 
     private void runLoop() {
         //MoveResponse moveResponse = gameAPI.sendMoveRequest();
-        MoveResponse moveResponse = MoveResponseJsonService.loadFromJson("C:\\Users\\ilyag\\Development_projects\\DatsEdenMagic\\src\\main\\resources\\responsejson\\moveResponse.json");
+        MoveResponse moveResponse = MoveResponseJsonService.loadFromJson("moveResponse.json");
         renderer.updateObjects(ConvertToListDrawObjects.convertToListDrawObjects(moveResponse));
+
+        //renderer.updateObjects( );
         //logic
 
-        renderer.draw(); // Перерисовка панели после обновления данных
+        //renderer.draw(); // Перерисовка панели после обновления данных
     }
     
 }

@@ -1,12 +1,14 @@
 package dev.team.visualization;
 
+import dev.team.visualization.objectsdraw.DrawableObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class GameRenderer extends JPanel {
     private ArrayList<DrawableObject> objects;
-    private final int SCALE_FACTOR = 2;
+    private final double SCALE_FACTOR = 0.1;
 
     public GameRenderer() {
         objects = new ArrayList<>();
@@ -22,7 +24,7 @@ public class GameRenderer extends JPanel {
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
         // Масштабирование графики
-        g2d.scale(SCALE_FACTOR, SCALE_FACTOR); // Увеличение масштаба в 2 раза
+        g2d.scale(SCALE_FACTOR, SCALE_FACTOR); // Увеличение масштаба в SCALE_FACTOR раз
 
         // Рисуем все объекты
         for (DrawableObject obj : objects) {
@@ -42,7 +44,7 @@ public class GameRenderer extends JPanel {
         repaint(); // Перерисовка после обновления объектов
     }
 
-    public int getScaleFactor() {
+    public double getScaleFactor() {
         return SCALE_FACTOR;
     }
 
