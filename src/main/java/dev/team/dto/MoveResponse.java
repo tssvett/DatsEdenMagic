@@ -1,5 +1,9 @@
 package dev.team.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import dev.team.models.ErrorDetails;
 import dev.team.models.TransportResponse;
 import dev.team.models.Vector2D;
 import dev.team.models.Anomaly;
@@ -23,10 +27,12 @@ public record MoveResponse(
         String name,
         Integer points,
         Integer reviveTimeoutSec,
-        Integer shieldCooldownSec,
+        Integer shieldCooldownMs,
         Integer shieldTimeMs,
         Integer transportRadius,
         List<TransportResponse> transports,
-        List<Enemy> wantedList
+        List<Enemy> wantedList,
+        @JsonIgnore
+        List<ErrorDetails> errors
 ) {
 }

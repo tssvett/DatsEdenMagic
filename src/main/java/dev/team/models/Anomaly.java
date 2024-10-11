@@ -3,12 +3,14 @@ package dev.team.models;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Anomaly {
     private Double effectiveRadius; // Радиус действия аномалии
     private String id;               // Уникальный идентификатор аномалии
