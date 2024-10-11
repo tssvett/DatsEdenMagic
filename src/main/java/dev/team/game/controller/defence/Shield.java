@@ -1,4 +1,4 @@
-package dev.team.game.defence;
+package dev.team.game.controller.defence;
 
 import dev.team.models.Enemy;
 import dev.team.models.TransportResponse;
