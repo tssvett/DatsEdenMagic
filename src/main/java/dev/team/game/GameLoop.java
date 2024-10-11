@@ -2,6 +2,7 @@ package dev.team.game;
 
 import dev.team.dto.MoveResponse;
 import dev.team.integration.GameAPI;
+import dev.team.serialization.MoveResponseJsonService;
 import dev.team.visualization.GameRenderer;
 import dev.team.visualization.objectsdraw.ConvertToListDrawObjects;
 
@@ -23,7 +24,8 @@ public class GameLoop {
     
 
     private void runLoop() {
-        MoveResponse moveResponse = gameAPI.sendMoveRequest();
+        //MoveResponse moveResponse = gameAPI.sendMoveRequest();
+        MoveResponse moveResponse = MoveResponseJsonService.loadFromJson("C:\\Users\\ilyag\\Development_projects\\DatsEdenMagic\\src\\main\\resources\\responsejson\\moveResponse.json");
         renderer.updateObjects(ConvertToListDrawObjects.convertToListDrawObjects(moveResponse));
         //logic
 
