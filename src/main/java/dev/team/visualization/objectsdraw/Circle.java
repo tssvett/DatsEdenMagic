@@ -1,4 +1,4 @@
-package dev.team.visualization;
+package dev.team.visualization.objectsdraw;
 
 import java.awt.*;
 
