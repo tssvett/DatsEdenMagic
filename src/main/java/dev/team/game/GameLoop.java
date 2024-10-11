@@ -10,6 +10,7 @@ import dev.team.visualization.objectsdraw.DrawableObject;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameLoop {
     private final GameRenderer renderer;
@@ -21,17 +22,19 @@ public class GameLoop {
 
 
         // Таймер для отправки запросов каждые 0.3 секунды
-        Timer timer = new Timer(300, e -> runLoop());
+        Timer timer = new Timer(2000, e -> runLoop());
         timer.start();
     }
     
 
     private void runLoop() {
         //MoveResponse moveResponse = gameAPI.sendMoveRequest();
-        MoveResponse moveResponse = MoveResponseJsonService.loadFromJson("moveResponse.json");
+        Random random = new Random();
+        int i=random.nextInt(1,20);
+        String nameFile="moveResponse"+String.valueOf(i)+".json";
+        MoveResponse moveResponse = MoveResponseJsonService.loadFromJson(nameFile);
         renderer.updateObjects(ConvertToListDrawObjects.convertToListDrawObjects(moveResponse));
 
-        //renderer.updateObjects( );
         //logic
 
         //renderer.draw(); // Перерисовка панели после обновления данных

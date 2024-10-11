@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class GameRenderer extends JPanel {
     private ArrayList<DrawableObject> objects;
-    private final double SCALE_FACTOR = 0.1;
+    private final double SCALE_FACTOR = 0.5;
 
     public GameRenderer() {
         objects = new ArrayList<>();
