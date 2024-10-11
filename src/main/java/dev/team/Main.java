@@ -1,6 +1,7 @@
 package dev.team;
 
 import dev.team.config.WebClientCreator;
+import dev.team.dto.MoveRequest;
 import dev.team.dto.MoveResponse;
 import dev.team.integration.GameAPI;
 import lombok.experimental.UtilityClass;
