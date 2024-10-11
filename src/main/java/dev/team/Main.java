@@ -21,6 +21,11 @@ public class Main {
         GameAPI gameAPI = new GameAPI(webClient);
 
         MoveResponse moveResponse = gameAPI.sendMoveRequest();
+
+        //logic
+
+
+
         log.info("{}", moveResponse);
         //log.info("{}", gameAPI.sendRoundRequest());
 

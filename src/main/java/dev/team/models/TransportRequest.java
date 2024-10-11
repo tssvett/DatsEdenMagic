@@ -10,6 +10,6 @@ import lombok.RequiredArgsConstructor;
 public class TransportRequest {
     private Vector2D acceleration;
     private boolean activateShield;
-    private final Vector2D attack;
-    private final String id;
+    private Vector2D attack;
+    private String id;
 }
