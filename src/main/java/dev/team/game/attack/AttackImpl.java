@@ -33,7 +33,7 @@ public class AttackImpl implements Attack {
             double distance = calculateDistance(myShip.getX(), myShip.getY(), enemy.getX(), enemy.getY());
 
             // Проверяем, находится ли враг в зоне поражения и в радиусе дальности
-            if (distance <= ATTACK_RADIUS && "alive".equals(enemy.getStatus())) {
+            if (distance <= ATTACK_RANGE + ATTACK_RADIUS && "alive".equals(enemy.getStatus())) {
                 return new Vector2D(enemy.getX().doubleValue(), enemy.getY().doubleValue()); // Возвращаем координаты врага для атаки
             }
         }
