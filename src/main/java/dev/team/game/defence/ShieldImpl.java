@@ -9,6 +9,11 @@ public class ShieldImpl implements Shield {
     private static final double ATTACK_RANGE = 200.0; // Радиус поражения
     private static final double ATTACK_RADIUS = 20.0;  // Радиус поражения
 
+    /**
+     * @param myShip Выбранный кораблик
+     * @param enemiesList Список врагов, которых мы видим
+     * @return Флажок, надо ли активировать щит
+     */
     @Override
     public Boolean isNeedToActivateShield(TransportResponse myShip, List<Enemy> enemiesList) {
         if (enemiesList == null || enemiesList.isEmpty()) {

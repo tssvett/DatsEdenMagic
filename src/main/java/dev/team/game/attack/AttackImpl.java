@@ -15,6 +15,11 @@ public class AttackImpl implements Attack {
     private static final int DAMAGE = 30;              // Урон
     private static final int COOLDOWN_MS = 5000;       // Время восстановления в миллисекундах
 
+    /**
+     * @param myShip Выбранный кораблик
+     * @param enemiesList Список врагов, которых мы видим
+     * @return Координаты для атаки
+     */
     @Override
     public Vector2D getCoordinatesForAttack(TransportResponse myShip, List<Enemy> enemiesList) {
         if (enemiesList == null || enemiesList.isEmpty()) {
