@@ -3,6 +3,7 @@ package dev.team.game;
 import dev.team.dto.MoveResponse;
 import dev.team.integration.GameAPI;
 import dev.team.visualization.GameRenderer;
+import dev.team.visualization.objectsdraw.ConvertToListDrawObjects;
 
 import javax.swing.*;
 
@@ -23,7 +24,7 @@ public class GameLoop {
 
     private void runLoop() {
         MoveResponse moveResponse = gameAPI.sendMoveRequest();
-        //какие обекты рисовать рисовать
+        renderer.updateObjects(ConvertToListDrawObjects.convertToListDrawObjects(moveResponse));
         //logic
 
         renderer.draw(); // Перерисовка панели после обновления данных
