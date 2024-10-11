@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConvertToListDrawObjects {
-    public static ArrayList<DrawableObject> convertToListDrawObjects(MoveResponse moveResponse) {
+    public static List<DrawableObject> convertToListDrawObjects(MoveResponse moveResponse) {
         ArrayList<DrawableObject> drawObjects = new ArrayList<>();
 
         List<Enemy> enemies = moveResponse.enemies();
