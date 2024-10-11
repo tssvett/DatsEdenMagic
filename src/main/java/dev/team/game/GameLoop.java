@@ -5,10 +5,6 @@ import dev.team.integration.GameAPI;
 import dev.team.visualization.GameRenderer;
 
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class GameLoop {
     private final GameRenderer renderer;
@@ -20,13 +16,15 @@ public class GameLoop {
 
 
         // Таймер для отправки запросов каждые 0.3 секунды
-        Timer timer = new Timer(300, e -> sendPeriodicRequests());
+        Timer timer = new Timer(300, e -> runLoop());
         timer.start();
     }
     
 
-    private void sendPeriodicRequests() {
+    private void runLoop() {
         MoveResponse moveResponse = gameAPI.sendMoveRequest();
+        //какие обекты рисовать рисовать
+        //logic
 
         renderer.draw(); // Перерисовка панели после обновления данных
     }
