@@ -1,39 +1,29 @@
 package dev.team;
+
 import dev.team.config.WebClientCreator;
-import dev.team.game.GameLoop;
+import dev.team.game.Game;
+import dev.team.game.GameController;
 import dev.team.integration.GameAPI;
 import dev.team.visualization.GameRenderer;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.client.WebClient;
-import javax.swing.*;
 
 @Slf4j
 @UtilityClass
 public class Main {
+    public static final String TOKEN = System.getenv().get("TOKEN");
+    public static final String PROD_URL = "https://games.datsteam.dev";
+    public static final String TEST_URL = "https://games-test.datsteam.dev";
     public static void main(String[] args) {
-        String token = System.getenv().get("TOKEN");
-        String prodUrl = "https://games.datsteam.dev";
-        String testUrl = "https://games-test.datsteam.dev";
-
-
-        WebClient webClient = new WebClientCreator(testUrl, token).webClient();
+        WebClient webClient = new WebClientCreator(TEST_URL, TOKEN).webClient();
 
         GameAPI gameAPI = new GameAPI(webClient);
-
-
-
-        //log.info("{}", moveResponse);
-        //log.info("{}", gameAPI.sendRoundRequest());
-
-
-        JFrame frame = new JFrame("Game");
+        GameController controller = new GameController();
         GameRenderer renderer = new GameRenderer();
-        frame.add(renderer);
-        GameLoop gameLoop = new GameLoop(renderer,gameAPI);
-        frame.setSize(1000, 1000);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
 
+
+        Game game = new Game(renderer, controller, gameAPI);
+        game.run();
     }
 }

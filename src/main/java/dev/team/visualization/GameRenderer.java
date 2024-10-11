@@ -5,53 +5,45 @@ import dev.team.visualization.objectsdraw.DrawableObject;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameRenderer extends JPanel {
-    private ArrayList<DrawableObject> objects;
+    private List<DrawableObject> objects = new ArrayList<>();
     private final double SCALE_FACTOR = 0.5;
-
-    public GameRenderer() {
-        objects = new ArrayList<>();
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // Установка серого фона
-        g2d.setColor(Color.LIGHT_GRAY);
-        g2d.fillRect(0, 0, getWidth(), getHeight());
+        setupBackground(g2d);
 
-        // Масштабирование графики
-        g2d.scale(SCALE_FACTOR, SCALE_FACTOR); // Увеличение масштаба в SCALE_FACTOR раз
+        scaleObjects(g2d);
 
-        // Рисуем все объекты
-        for (DrawableObject obj : objects) {
-            obj.draw(g2d);
-        }
-
-
+        drawAllObjects(g2d);
     }
 
-    public void addDrawableObject(DrawableObject object) {
-        objects.add(object); // Добавление объекта в список
-        repaint(); // Перерисовка после добавления нового объекта
-    }
 
-    public void updateObjects(ArrayList<DrawableObject> updatedObjects) {
+    public void draw(List<DrawableObject> updatedObjects) {
         this.objects = updatedObjects; // Обновление списка объектов
         repaint(); // Перерисовка после обновления объектов
     }
 
-    public double getScaleFactor() {
-        return SCALE_FACTOR;
+    private void drawAllObjects(Graphics2D g2d) {
+        // Рисуем все объекты
+        for (DrawableObject obj : objects) {
+            obj.draw(g2d);
+        }
     }
 
-    public void draw() {
+    private void scaleObjects(Graphics2D g2d) {
+        // Масштабирование графики
+        g2d.scale(SCALE_FACTOR, SCALE_FACTOR); // Увеличение масштаба в SCALE_FACTOR раз
+    }
 
-        repaint();
-
-
+    private void setupBackground(Graphics2D g2d) {
+        // Установка серого фона
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fillRect(0, 0, getWidth(), getHeight());
     }
 }
