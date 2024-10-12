@@ -69,7 +69,7 @@ public class MoveImpl implements Move {
         Vector2D requiredAcceleration = new Vector2D(a1x, a1y);
 
         // 5. Ограничиваем ускорение до MAX_ACCELERATION, если нужно
-        if (requiredAcceleration.length() < 50 || requiredAcceleration.length() > MAX_ACCELERATION) {
+        if (requiredAcceleration.length() < 50 || requiredAcceleration.length() >= MAX_ACCELERATION*9.9) {
             requiredAcceleration = requiredAcceleration.scale(MAX_ACCELERATION / requiredAcceleration.length());
         }
 
