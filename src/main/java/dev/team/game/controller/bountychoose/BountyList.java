@@ -40,19 +40,25 @@ public class BountyList {
                     Bounty bounty = entry.getKey();
                     Vector2D bountyVector = new Vector2D((double) (bounty.getX() - transportResponse.getX()), (double) (bounty.getY() - transportResponse.getY()));
                     double angle = vector2D.angleVectors(bountyVector); // Предполагается, что метод angleVectors реализован
-                    return angle <= 90; // Фильтруем по углу (<= 90 градусов)
+                    //
+                    double bestAngle = 45.0 + (45.0 - (9.0 / 22.0) * transportResponse.getVelocity().length());
+                    return angle <= (int) bestAngle; // Фильтруем по углу (<= 90 градусов)
                 })
                 .min(Comparator.comparingDouble(Map.Entry::getValue)) // Находим минимальную дистанцию
                 .map(Map.Entry::getKey) // Получаем Bounty
                 .map(bounty -> new Coordinate(bounty.getX(), bounty.getY())) // Преобразуем в Coordinate
                 .orElseGet(() -> {
+                    /*
                     if (!bountyDistanceList.isEmpty()) {
                         return new Coordinate(bountyDistanceList.get(0).getKey().getX(),
                                 bountyDistanceList.get(0).getKey().getY());
                     }
                     else
-                        return null;
-                }); // Если ничего не найдено, возвращаем null
-                }
 
+                     */
+                    // Если ничего не найдено, возвращаем центр
+                    return new Coordinate(7500, 7500);
+                });
     }
+
+}
