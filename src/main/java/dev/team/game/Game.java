@@ -36,7 +36,6 @@ public class Game {
 
     private void runLoop() {
         renderer.draw(ConvertToListDrawObjects.convertToListDrawObjects(moveResponse));
-        System.out.println(renderer.getX() + " " + renderer.getY());
         // Update overlay information if needed
         infoOverlay.updateGameInfoLabel(moveResponse, renderer); // Example update
         myShipsInfoOverlay.updateGameInfoLabel(moveResponse);

@@ -7,23 +7,24 @@ import java.awt.*;
 public class DrawableBounty extends DrawableObject {
     private static final Color innerColor = Color.YELLOW;
     private static final Color outerColor = null;
-    private static final int outerRadius = 0;
 
     private static final int innerRadius = 20;
 
     private final int moneyNominal;
 
-    public DrawableBounty(int x, int y, int moneyNominal) {
+    public DrawableBounty(int x, int y, int moneyNominal, int outerRadius) {
         super(x, y, innerRadius, innerColor, outerRadius, outerColor);
         this.moneyNominal = moneyNominal;
     }
 
     @Override
     public void draw(Graphics g) {
-        outerCircle.draw(g); // Draw the outer circle
 
         g.setColor(getInnerColor()); // Use the inner circle's color
         innerCircle.draw(g); // Draw the inner circle
+
+        g.setColor(new Color(38, 213, 71)); // Use the outer circle's color
+        outerCircle.draw(g); // Draw the outer circle
 
         drawText(g);
     }

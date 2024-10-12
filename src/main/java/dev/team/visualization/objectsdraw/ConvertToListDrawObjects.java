@@ -37,7 +37,7 @@ public class ConvertToListDrawObjects {
         }
 
         for (Bounty bounty : bounties) {
-            drawObjects.add(new DrawableBounty(bounty.getX(), bounty.getY(), bounty.getPoints()));
+            drawObjects.add(new DrawableBounty(bounty.getX(), bounty.getY(), bounty.getPoints(), bounty.getRadius()));
         }
 
         return drawObjects;

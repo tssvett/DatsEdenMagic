@@ -11,6 +11,7 @@ public class DrawableAlly extends DrawableObject {
     private static final Color outerColor = null;
     private static final int allyShipSize = 20;
     private static final int outerRadius = 0;
+    private static final int ATTACK_RADIUS = 220; // Attack radius
 
     private int HP;
     private Vector2D velocity;
@@ -26,6 +27,7 @@ public class DrawableAlly extends DrawableObject {
         drawHP(g);
         drawBody(g);
         drawVelocityArrow(g);
+        drawAttackRadius(g); // Draw the attack radius
     }
 
     private void drawBody(Graphics g) {
@@ -95,5 +97,20 @@ public class DrawableAlly extends DrawableObject {
 
         // Reset stroke to default if necessary
         g2d.setStroke(new BasicStroke(1)); // Resetting stroke to default thickness
+    }
+
+    private void drawAttackRadius(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        // Set color and transparency for attack radius circle outline
+        g2d.setColor(new Color(255, 0, 0, 100)); // Red with some transparency
+
+        // Draw attack radius as an outline around the ally's position
+        int centerX = innerCircle.getX();
+        int centerY = innerCircle.getY();
+
+        // Draw only the circumference of the attack radius circle
+        g2d.drawOval(centerX - ATTACK_RADIUS / 2, centerY - ATTACK_RADIUS / 2,
+                ATTACK_RADIUS, ATTACK_RADIUS);
     }
 }

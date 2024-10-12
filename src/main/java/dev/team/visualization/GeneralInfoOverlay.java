@@ -27,8 +27,8 @@ public class GeneralInfoOverlay extends JPanel {
                 moveResponse.points(),
                 moveResponse.mapSize().x().intValue(),
                 moveResponse.mapSize().y().intValue(),
-                gameRenderer.getCameraX(),
-                gameRenderer.getCameraY()
+                (int) gameRenderer.getCameraX(),
+                (int) gameRenderer.getCameraY()
 
         ));
 
