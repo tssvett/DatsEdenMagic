@@ -24,12 +24,12 @@ public class ConvertToListDrawObjects {
         }
 
         for (TransportResponse transport : transports) {
-            drawObjects.add(new DrawableObject(transport.getX(), transport.getY(), 2, Color.BLUE, 0, null));
+            drawObjects.add(new DrawableObject(transport.getX(), transport.getY(), 2, Color.GREEN, 0, null));
         }
 
         for (Anomaly anomaly : anomalies) {
-            Color outerColor = (anomaly.getStrength() > 0) ? Color.GREEN : Color.CYAN;
-            drawObjects.add(new DrawableObject(anomaly.getX(), anomaly.getY(), anomaly.getRadius().intValue(), Color.BLACK, anomaly.getEffectiveRadius().intValue(), outerColor));
+            Color outerColor = (anomaly.getStrength() > 0) ? Color.YELLOW : Color.CYAN;
+            drawObjects.add(new DrawableAnomaly(anomaly.getX(), anomaly.getY(), anomaly.getRadius().intValue(), Color.BLACK, anomaly.getEffectiveRadius().intValue(), outerColor));
         }
 
         for (Bounty bounty : bounties) {

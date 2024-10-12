@@ -3,8 +3,8 @@ package dev.team.visualization.objectsdraw;
 import java.awt.*;
 
 public class DrawableObject {
-    private Circle innerCircle;
-    private Circle outerCircle;
+    protected Circle innerCircle;
+    protected Circle outerCircle;
 
     public DrawableObject(int x, int y, int innerRadius, Color innerColor, int outerRadius, Color outerColor) {
         this.innerCircle = new Circle(x, y, innerRadius, innerColor);
@@ -21,7 +21,7 @@ public class DrawableObject {
         g.drawString(colorName, innerCircle.getX() - 20, innerCircle.getY() - (innerCircle.getRadius() / 2) - 5);
     }
 
-    private String getColorName(Color color) {
+    protected String getColorName(Color color) {
         if (color.equals(Color.RED)) return "Red";
         if (color.equals(Color.GREEN)) return "Green";
         if (color.equals(Color.BLUE)) return "Blue";
