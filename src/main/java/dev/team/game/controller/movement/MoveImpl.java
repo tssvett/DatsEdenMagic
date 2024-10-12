@@ -112,11 +112,11 @@ public class MoveImpl implements Move {
         }
 
         // 6. Демпфирование для плавного движения (затухание ускорения)
-        final double DAMPING_FACTOR = 0.1;  // Регулирует плавность
+        final double DAMPING_FACTOR = 0.5;  // Регулирует плавность
         requiredAcceleration = requiredAcceleration.scale(1 - DAMPING_FACTOR);
 
         // 7. Избегаем мелких изменений ускорения (например, менее 1)
-        if (accelerationMagnitude < 1) {
+        if (accelerationMagnitude < 5) {
             return new Vector2D(0.0, 0.0);  // Прекращаем корректировки
         }
 
