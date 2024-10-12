@@ -9,4 +9,7 @@ import java.util.List;
 
 public interface Move {
     public Vector2D getMaxAccelerationToPointWithoutAnomaly(TransportResponse transport, Coordinate point);
+
+    public Vector2D getAccelerationToPoint(
+            TransportResponse transportResponse, Coordinate point);
 }
