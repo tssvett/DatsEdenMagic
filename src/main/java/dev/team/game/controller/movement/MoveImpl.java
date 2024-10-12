@@ -9,37 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MoveImpl implements Move {
     private static final double MAX_ACCELERATION = 10.0; // Максимальное ускорение (например, 10 м/с²)
 
-    /**
-     * @param myShip         Выбранный кораблик
-     * @param targetPosition Координаты точки, куда надо плыть
-     * @return Вектор ускорения
-     */
-    @Override
-    public Vector2D getAccelerationToPoint(TransportResponse myShip, Coordinate point, Vector2D anomalyAcceleration) {
-        // Текущие координаты ковра
-        Vector2D currentPosition = new Vector2D(myShip.getX().doubleValue(), myShip.getY().doubleValue());
 
-        // Вычисляем вектор направления
-        double dirX = targetPosition.x() - currentPosition.x();
-        double dirY = targetPosition.y() - currentPosition.y();
-
-        // Длина вектора направления
-        double length = Math.sqrt(dirX * dirX + dirY * dirY);
-
-        // Если длина больше нуля, нормализуем и масштабируем
-        if (length > 0) {
-            // Нормализация
-            double normX = dirX / length;
-            double normY = dirY / length;
-
-
-        }
-
-        // Если длина равна нулю, возвращаем нулевое ускорение
-        return new Vector2D(0.0, 0.0);
-    }
-
-    public Vector2D getAccelerationToPointWithoutAnomaly(TransportResponse transport, Coordinate point) {
+    public Vector2D getMaxAccelerationToPointWithoutAnomaly(TransportResponse transport, Coordinate point) {
         Coordinate transportCoord = new Coordinate(transport.getX(), transport.getY());
 
         // 1. Вычисляем вектор AB
@@ -51,15 +22,10 @@ public class MoveImpl implements Move {
         // 3. Ограничение на максимальное ускорение
         double maxAcceleration = MAX_ACCELERATION;
 
-        // 4. Если длина вектора меньше или равна максимальному ускорению, возвращаем его
-        if (lengthAB <= maxAcceleration) {
-            return new Vector2D(vectorAB.getX(), vectorAB.getY());
-        }
-
-        // 5. Вычисляем коэффициент масштабирования
+        // 4. Вычисляем коэффициент масштабирования
         double scalingFactor = maxAcceleration / lengthAB;
 
-        // 6. Масштабируем вектор AB
+        // 5. Масштабируем вектор AB
         double scaledX = vectorAB.getX() * scalingFactor;
         double scaledY = vectorAB.getY() * scalingFactor;
 
