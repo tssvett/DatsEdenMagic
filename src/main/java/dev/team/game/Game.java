@@ -30,7 +30,7 @@ public class Game {
 
     public void run() {
         applyJFrame();
-        Timer timer = new Timer(300, e -> runLoop());
+        Timer timer = new Timer(400, e -> runLoop());
         timer.start();
     }
 

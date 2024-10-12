@@ -10,8 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter
 public class Coordinate {
-    private double x;
-    private double y;
+    private Integer x;
+    private Integer y;
 
     // Метод для сложения координат
     public Coordinate add(Coordinate other) {
