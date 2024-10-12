@@ -16,7 +16,9 @@ public class GameRenderer extends JPanel {
     private double scaleFactor = 0.5; // Default scale factor
 
     // Camera position variables
+    @Getter
     private double cameraX = 0;
+    @Getter
     private double cameraY = 0;
 
     @Override
@@ -59,9 +61,15 @@ public class GameRenderer extends JPanel {
     }
 
     // Method to move the camera
-    public void moveCamera(double deltaX, double deltaY) {
+    public void moveCameraBy(double deltaX, double deltaY) {
         this.cameraX += deltaX;
         this.cameraY += deltaY;
+        repaint(); // Repaint after moving the camera
+    }
+
+    public void moveCameraTo(double X, double Y) {
+        this.cameraX = X;
+        this.cameraY = Y;
         repaint(); // Repaint after moving the camera
     }
 }

@@ -10,23 +10,26 @@ public class GeneralInfoOverlay extends JPanel {
     private static final int RECTANGLE_HEIGHT = 40; // Fixed height for each rectangle
     private static final int RECTANGLE_PADDING = 10; // Padding around the text
 
-    public GeneralInfoOverlay() {
+    public GeneralInfoOverlay(GameRenderer gameRenderer) {
         setOpaque(false); // Make it transparent
     }
 
-    public void updateGameInfoLabel(MoveResponse moveResponse) {
+    public void updateGameInfoLabel(MoveResponse moveResponse, GameRenderer gameRenderer) {
         StringBuilder infoBuilder = new StringBuilder();
-
         // Append existing information
         infoBuilder.append(String.format("""
             Team: %s
             Total Money: %s
             Map size: %sx%s
+            Camera Position: (%s, %s)
             """,
                 moveResponse.name(),
                 moveResponse.points(),
                 moveResponse.mapSize().x().intValue(),
-                moveResponse.mapSize().y().intValue()
+                moveResponse.mapSize().y().intValue(),
+                gameRenderer.getCameraX(),
+                gameRenderer.getCameraY()
+
         ));
 
         // Update infoText with the complete information

@@ -1,5 +1,6 @@
 package dev.team.game;
 
+import dev.team.dto.MoveResponse;
 import dev.team.visualization.GameRenderer;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ public class GameCameraController extends JPanel implements KeyListener {
     private final GameRenderer renderer; // Reference to GameRenderer
     private final Set<Integer> pressedKeys = new HashSet<>(); // Track currently pressed keys
     private final Timer movementTimer; // Timer for continuous movement
+    private MoveResponse moveResponse;
 
     public GameCameraController(GameRenderer renderer) {
         this.renderer = renderer; // Initialize the reference
@@ -32,7 +34,28 @@ public class GameCameraController extends JPanel implements KeyListener {
             case '-':
                 decreaseScale();
                 break;
+            case '1':
+                Integer x = moveResponse.transports().get(0).getX();
+                Integer y = moveResponse.transports().get(0).getY();
+                System.out.println(x + " " + y);
+                moveCameraTo(x, y);
+                break;
+            case '2':
+                moveCameraTo(moveResponse.transports().get(1).getX(), moveResponse.transports().get(1).getY());
+                break;
+            case '3':
+                moveCameraTo(moveResponse.transports().get(2).getX(), moveResponse.transports().get(2).getY());
+                break;
+            case '4':
+                moveCameraTo(moveResponse.transports().get(3).getX(), moveResponse.transports().get(3).getY());
+                break;
+            case '5':
+                moveCameraTo(moveResponse.transports().get(4).getX(), moveResponse.transports().get(4).getY());
+                break;
         }
+    }
+    public void getShips(MoveResponse moveResponse) {
+        this.moveResponse = moveResponse;
     }
 
     @Override
@@ -62,7 +85,11 @@ public class GameCameraController extends JPanel implements KeyListener {
             deltaX -= 10; // Move right
         }
 
-        renderer.moveCamera(deltaX, deltaY); // Update camera position in renderer
+        renderer.moveCameraBy(deltaX, deltaY); // Update camera position in renderer
+    }
+
+    public void moveCameraTo(double x, double y) {
+        renderer.moveCameraTo(-x * renderer.getScaleFactor() + renderer.getWidth() / 2, -y * renderer.getScaleFactor() + renderer.getHeight() / 2);
     }
 
     private void increaseScale() {

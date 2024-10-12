@@ -36,10 +36,11 @@ public class Game {
 
     private void runLoop() {
         renderer.draw(ConvertToListDrawObjects.convertToListDrawObjects(moveResponse));
-
+        System.out.println(renderer.getX() + " " + renderer.getY());
         // Update overlay information if needed
-        infoOverlay.updateGameInfoLabel(moveResponse); // Example update
+        infoOverlay.updateGameInfoLabel(moveResponse, renderer); // Example update
         myShipsInfoOverlay.updateGameInfoLabel(moveResponse);
+        controller.getShips(moveResponse);
 
         moveResponse = gameAPI.sendMoveRequest(strategy.makeStrategyStep(moveResponse));
     }
@@ -61,7 +62,7 @@ public class Game {
         layeredPane.add(controller, Integer.valueOf(1)); // Add controller at layer 2 (on top of renderer)
         layeredPane.add(renderer, Integer.valueOf(2)); // Add renderer at layer 1
 
-        infoOverlay = new GeneralInfoOverlay(); // Initialize the overlay
+        infoOverlay = new GeneralInfoOverlay(renderer); // Initialize the overlay
         infoOverlay.setBounds(0, 0, frame.getWidth(), frame.getHeight()); // Set size and position
         layeredPane.add(infoOverlay, Integer.valueOf(3)); // Add overlay at layer 3 (on top)
 
