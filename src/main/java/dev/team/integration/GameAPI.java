@@ -48,7 +48,7 @@ public class GameAPI {
                 })
                 .bodyToMono(new ParameterizedTypeReference<MoveResponse>() {
                 })
-                .doOnNext(categories -> log.info("Successfully get response"))
+                .doOnNext(categories -> log.debug("Successfully get response"))
                 .doOnError(e -> log.error("Error fetching categories: {}", e.getMessage()))
                 .block();
     }
@@ -83,7 +83,7 @@ public class GameAPI {
                 })
                 .bodyToMono(new ParameterizedTypeReference<MoveResponse>() {
                 })
-                .doOnNext(response -> log.info("Successfully got response"))
+                .doOnNext(response -> log.debug("Successfully got response"))
                 .doOnError(e -> log.error("Error fetching response: {}", e.getMessage()))
                 .block();
     }

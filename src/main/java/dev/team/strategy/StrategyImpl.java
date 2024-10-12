@@ -41,7 +41,6 @@ public class StrategyImpl implements Strategy {
 
             Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
             Vector2D acceleration = move.getAccelerationToPoint(myShip, nearestMoneyCoordinates);
-            System.out.println(acceleration.toString());
             moveRequests.add(new TransportRequest(
                     acceleration,
                     needToActivateShield,
