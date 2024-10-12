@@ -5,7 +5,8 @@ import dev.team.models.Bounty;
 import dev.team.models.TransportResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface BountyChoose {
-    public Coordinate bountyChoose(TransportResponse transportResponse, ArrayList<Bounty> bountyList);
+    public Coordinate bountyChoose(TransportResponse transportResponse, List<Bounty> bountyList);
 }

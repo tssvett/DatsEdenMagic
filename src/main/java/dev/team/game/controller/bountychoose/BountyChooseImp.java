@@ -5,11 +5,14 @@ import dev.team.models.Bounty;
 import dev.team.models.TransportResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BountyChooseImp implements BountyChoose {
 
     @Override
-    public Coordinate bountyChoose(TransportResponse transportResponse, ArrayList<Bounty> bountyList) {
+    public Coordinate bountyChoose(TransportResponse transportResponse, List<Bounty> bountyList) {
+
+
         return null;
     }
 }
