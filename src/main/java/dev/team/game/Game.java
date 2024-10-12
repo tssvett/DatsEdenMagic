@@ -2,7 +2,7 @@ package dev.team.game;
 
 import dev.team.dto.MoveResponse;
 import dev.team.integration.GameAPI;
-import dev.team.strategy.Strategy;
+import dev.team.game.strategy.Strategy;
 import dev.team.visualization.GameRenderer;
 import dev.team.visualization.GeneralInfoOverlay;
 import dev.team.visualization.MyShipsInfoOverlay;
