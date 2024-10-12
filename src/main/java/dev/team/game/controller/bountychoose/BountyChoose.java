@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface BountyChoose {
     public Coordinate bountyChoose(TransportResponse transportResponse, List<Bounty> bountyList);
+    public Coordinate bountyChooseForCenter(TransportResponse transportResponse, List<Bounty> bountyList);
 }

@@ -15,4 +15,10 @@ public class BountyChooseImp implements BountyChoose {
 
         return bountySortList.getMinDistanceBounty();
     }
+
+    public Coordinate bountyChooseForCenter(TransportResponse transportResponse, List<Bounty> bountyList){
+        BountyList bountySortList = new BountyList(transportResponse, bountyList);
+
+        return  bountySortList.getCoordinateForCenterBounty();
+    }
 }

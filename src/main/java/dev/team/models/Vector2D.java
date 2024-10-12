@@ -1,5 +1,7 @@
 package dev.team.models;
 
+import dev.team.game.workvector.Coordinate;
+
 public record Vector2D(Double x, Double y) {
 
     public Vector2D normalize() {
@@ -46,6 +48,10 @@ public record Vector2D(Double x, Double y) {
         // Optionally, convert to degrees if needed
 
         return Math.toDegrees(angleInRadians);// Return the angle in degrees
+    }
+
+    public static Vector2D getVectorFromCoordinate(Coordinate begin, Coordinate end){
+        return new Vector2D(end.getX().doubleValue() - begin.getX(), end.getY().doubleValue() - begin.getY());
     }
 
 }

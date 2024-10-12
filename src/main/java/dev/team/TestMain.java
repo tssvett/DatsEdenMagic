@@ -18,8 +18,6 @@ public class TestMain {
 
         GameAPI gameAPI = new GameAPI(webClient);
 
-        MoveResponse moveResponse = gameAPI.sendMoveRequest();
-
-        MoveResponseJsonService.saveToJson(moveResponse, "moveResponse20.json");
+        System.out.println(gameAPI.sendRoundRequest());
     }
 }
