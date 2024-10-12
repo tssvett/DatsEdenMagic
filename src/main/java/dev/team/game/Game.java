@@ -20,14 +20,14 @@ public class Game {
 
     public void run() {
         applyJFrame();
-        Timer timer = new Timer(2000, e -> runLoop());
+        Timer timer = new Timer(400, e -> runLoop());
         timer.start();
     }
 
     private void runLoop() {
-        //MoveResponse moveResponse = gameAPI.sendMoveRequest();
+        MoveResponse moveResponse = gameAPI.sendMoveRequest();
         //MoveResponse moveResponse = MoveResponseJsonService.loadFromJson(getNameFile());
-        MoveResponse moveResponse = MoveResponseJsonService.loadFromJson("moveResponse1.json");
+        //MoveResponse moveResponse = MoveResponseJsonService.loadFromJson("moveResponse1.json");
         renderer.draw(ConvertToListDrawObjects.convertToListDrawObjects(moveResponse));
 
         //Logic
