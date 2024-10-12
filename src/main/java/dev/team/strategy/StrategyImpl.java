@@ -36,7 +36,7 @@ public class StrategyImpl implements Strategy {
         List<TransportRequest> moveRequests = new ArrayList<>();
         for (TransportResponse myShip : myShips) {
             Coordinate coordinates = attack.getCoordinatesForAttack(myShip, enemies);
-            boolean needToActivateShield = shield.isNeedToActivateShield(myShip, enemies);
+            boolean needToActivateShield = shield.isNeedToActivateShieldWhenHpIsLow(myShip, enemies);
 
 
             Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);

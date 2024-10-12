@@ -10,7 +10,7 @@ public class ShieldImpl implements Shield {
     private static final double ATTACK_RADIUS = 20.0;  // Радиус поражения
 
     /**
-     * @param myShip Выбранный кораблик
+     * @param myShip      Выбранный кораблик
      * @param enemiesList Список врагов, которых мы видим
      * @return Флажок, надо ли активировать щит
      */
@@ -25,7 +25,27 @@ public class ShieldImpl implements Shield {
             double distance = calculateDistance(myShip.getX(), myShip.getY(), enemy.getX(), enemy.getY());
 
             // Проверяем, находится ли враг в зоне поражения
-            if (distance <= ATTACK_RANGE + ATTACK_RADIUS  && "alive".equals(enemy.getStatus())) {
+            if (distance <= ATTACK_RANGE + ATTACK_RADIUS && "alive".equals(enemy.getStatus())) {
+                return true; // Щит нужно активировать
+            }
+        }
+
+        return false; // Нет врагов в зоне поражения
+    }
+
+    @Override
+    public Boolean isNeedToActivateShieldWhenHpIsLow(TransportResponse myShip, List<Enemy> enemiesList) {
+        if (enemiesList == null || enemiesList.isEmpty()) {
+            return false; // Нет врагов для проверки
+        }
+
+        for (Enemy enemy : enemiesList) {
+            // Вычисляем расстояние до врага
+            double distance = calculateDistance(myShip.getX(), myShip.getY(), enemy.getX(), enemy.getY());
+
+            // Проверяем, находится ли враг в зоне поражения
+            if (distance <= ATTACK_RANGE + ATTACK_RADIUS && "alive".equals(enemy.getStatus())
+                    && myShip.getHealth() <= 30) {
                 return true; // Щит нужно активировать
             }
         }

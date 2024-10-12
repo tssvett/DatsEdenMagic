@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface Shield {
     Boolean isNeedToActivateShield(TransportResponse myShip, List<Enemy> enemiesList);
+
+    Boolean isNeedToActivateShieldWhenHpIsLow(TransportResponse myShip, List<Enemy> enemiesList);
+
+
 }
