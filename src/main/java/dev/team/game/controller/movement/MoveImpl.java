@@ -12,6 +12,7 @@ import java.util.List;
 public class MoveImpl implements Move {
     private static final double MAX_ACCELERATION = 10.0; // Максимальное ускорение (например, 10 м/с²)
 
+    private static final double MAX_SPEED = 110;
 
     public Vector2D getMaxAccelerationToPointWithoutAnomaly(TransportResponse transport, Coordinate point) {
         Coordinate transportCoord = new Coordinate(transport.getX(), transport.getY());
@@ -52,7 +53,12 @@ public class MoveImpl implements Move {
         double distance = Coordinate.distance(ship, point);
 
         // 3. Приблизительное время прибытия (если двигаться с текущей скоростью)
-        double timeToReach = distance / speed.length();
+        double timeToReach;
+        if (speed.length() == 0){
+            timeToReach = distance / MAX_SPEED;
+        } else {
+            timeToReach = distance / speed.length();
+        }
 
         // 4. Вычисляем требуемое ускорение a1 по формуле
         double a1x = (2 * (vectorToTarget.x() - speed.x() * timeToReach)) / (timeToReach * timeToReach)
@@ -63,10 +69,11 @@ public class MoveImpl implements Move {
         Vector2D requiredAcceleration = new Vector2D(a1x, a1y);
 
         // 5. Ограничиваем ускорение до MAX_ACCELERATION, если нужно
-        if (requiredAcceleration.length() > MAX_ACCELERATION) {
-            double scale = MAX_ACCELERATION / requiredAcceleration.length();
-            requiredAcceleration = requiredAcceleration.scale(scale);
-        }
+//        if (requiredAcceleration.length() > MAX_ACCELERATION) {
+//            double scale = MAX_ACCELERATION / requiredAcceleration.length();
+//            requiredAcceleration = requiredAcceleration.scale(scale);
+//        }
+        requiredAcceleration = requiredAcceleration.scale(MAX_ACCELERATION / requiredAcceleration.length());
 
         return requiredAcceleration;
     }
