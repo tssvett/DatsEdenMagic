@@ -5,6 +5,11 @@ import dev.team.models.Anomaly;
 import dev.team.models.Bounty;
 import dev.team.models.Enemy;
 import dev.team.models.TransportResponse;
+import dev.team.visualization.objectsdraw.drawable.DrawableObject;
+import dev.team.visualization.objectsdraw.drawable.extend.DrawableAlly;
+import dev.team.visualization.objectsdraw.drawable.extend.DrawableAnomaly;
+import dev.team.visualization.objectsdraw.drawable.extend.DrawableBounty;
+import dev.team.visualization.objectsdraw.drawable.extend.DrawableEnemy;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,19 +25,19 @@ public class ConvertToListDrawObjects {
         List<Bounty> bounties = moveResponse.bounties();
 
         for (Enemy enemy : enemies) {
-            drawObjects.add(new DrawableObject(enemy.getX(), enemy.getY(), 2, Color.RED, 0, null));
+            drawObjects.add(new DrawableEnemy(enemy.getX(), enemy.getY(), enemy.getHealth()));
         }
 
         for (TransportResponse transport : transports) {
-            drawObjects.add(new DrawableObject(transport.getX(), transport.getY(), 2, Color.BLUE, 0, null));
+            drawObjects.add(new DrawableAlly(transport.getX(), transport.getY(), transport.getHealth()));
         }
 
         for (Anomaly anomaly : anomalies) {
-            drawObjects.add(new DrawableAnomaly(anomaly.getX(), anomaly.getY(), anomaly.getRadius().intValue(), anomaly.getEffectiveRadius().intValue()));
+            drawObjects.add(new DrawableAnomaly(anomaly.getX(), anomaly.getY(), anomaly.getRadius().intValue(), anomaly.getEffectiveRadius().intValue(),anomaly.getStrength()));
         }
 
         for (Bounty bounty : bounties) {
-            drawObjects.add(new DrawableObject(bounty.getX(), bounty.getY(), bounty.getRadius(), Color.YELLOW, 0, null));
+            drawObjects.add(new DrawableBounty(bounty.getX(), bounty.getY(), bounty.getPoints()));
         }
 
         return drawObjects;

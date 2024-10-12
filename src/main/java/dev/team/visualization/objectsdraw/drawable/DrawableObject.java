@@ -1,4 +1,6 @@
-package dev.team.visualization.objectsdraw;
+package dev.team.visualization.objectsdraw.drawable;
+
+import dev.team.visualization.objectsdraw.Circle;
 
 import java.awt.*;
 

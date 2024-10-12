@@ -66,13 +66,13 @@ public class GameCameraController extends JPanel implements KeyListener {
     }
 
     private void increaseScale() {
-        double newScale = Math.min(renderer.getScaleFactor() + 0.05, 2.0); // Limit max scale to 2.0
+        double newScale = Math.min(renderer.getScaleFactor() + 0.01, 2.0); // Limit max scale to 2.0
         renderer.setScaleFactor(newScale); // Update scale factor in renderer
         System.out.println("Scale increased: " + newScale);
     }
 
     private void decreaseScale() {
-        double newScale = Math.max(renderer.getScaleFactor() - 0.05, 0.05); // Limit min scale to 0.1
+        double newScale = Math.max(renderer.getScaleFactor() - 0.01, 0.00005); // Limit min scale to 0.1
         renderer.setScaleFactor(newScale); // Update scale factor in renderer
         System.out.println("Scale decreased: " + newScale);
     }

@@ -1,6 +1,6 @@
 package dev.team.visualization;
 
-import dev.team.visualization.objectsdraw.DrawableObject;
+import dev.team.visualization.objectsdraw.drawable.DrawableObject;
 import lombok.Getter;
 
 import javax.swing.*;
