@@ -15,7 +15,9 @@ public record Vector2D(Double x, Double y) {
         return Math.sqrt(x * x + y * y);
     }
 
-
+    public double magnitude() {
+        return Math.sqrt(x * x + y * y);
+    }
 
 
 }
