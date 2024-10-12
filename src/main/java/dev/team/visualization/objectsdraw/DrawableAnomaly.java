@@ -3,31 +3,32 @@ package dev.team.visualization.objectsdraw;
 import java.awt.*;
 
 public class DrawableAnomaly extends DrawableObject {
-    public DrawableAnomaly(int x, int y, int innerRadius, Color innerColor, int outerRadius, Color outerColor) {
+    private static final Color innerColor = new Color(0, 255, 0, 128);
+    private static final Color outerColor = new Color(0, 128, 0, 128);
+
+    public DrawableAnomaly(int x, int y, int innerRadius, int outerRadius) {
         super(x, y, innerRadius, innerColor, outerRadius, outerColor);
     }
 
     @Override
     public void draw(Graphics g) {
-        Color transparentOuterColor = new Color(outerCircle.getColor().getRed(),
-                outerCircle.getColor().getGreen(),
-                outerCircle.getColor().getBlue(),
-                128); // Adjust alpha value (0-255) as needed
+        // Create a transparent version of the outer circle's color
+        Color transparentOuterColor = new Color(getOuterColor().getRed(),
+                getOuterColor().getGreen(),
+                getOuterColor().getBlue(),
+                128); // Adjust alpha value as needed
 
-        Color transparentInnerColor = new Color(outerCircle.getColor().getRed(),
-                outerCircle.getColor().getGreen(),
-                outerCircle.getColor().getBlue(),
-                128); // Adjust alpha value (0-255) as needed
-
-        g.setColor(Color.magenta);
+        g.setColor(transparentOuterColor);
         outerCircle.draw(g); // Draw the outer circle
 
-        g.setColor(Color.magenta); // Use inner circle's color
+        g.setColor(getInnerColor()); // Use the inner circle's color
         innerCircle.draw(g); // Draw the inner circle
 
-        // Рисуем название цвета над внутренним кругом
-        g.setColor(Color.BLACK); // Цвет текста
+        // Draw color name above the inner circle
+        g.setColor(Color.BLACK); // Text color
         String colorName = getColorName(innerCircle.getColor());
-        g.drawString(colorName, innerCircle.getX() - 20, innerCircle.getY() - (innerCircle.getRadius() / 2) - 5);
+        g.drawString(colorName,
+                innerCircle.getX() - 20,
+                innerCircle.getY() - (innerCircle.getRadius() / 2) - 5);
     }
 }

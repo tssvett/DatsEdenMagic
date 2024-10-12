@@ -12,11 +12,11 @@ public class DrawableObject {
     }
 
     public void draw(Graphics g) {
-        outerCircle.draw(g); // Сначала рисуем внешний круг
-        innerCircle.draw(g);  // Затем рисуем внутренний круг
+        outerCircle.draw(g); // Draw outer circle
+        innerCircle.draw(g);  // Draw inner circle
 
-        // Рисуем название цвета над внутренним кругом
-        g.setColor(Color.BLACK); // Цвет текста
+        // Draw color name above the inner circle
+        g.setColor(Color.BLACK); // Text color
         String colorName = getColorName(innerCircle.getColor());
         g.drawString(colorName, innerCircle.getX() - 20, innerCircle.getY() - (innerCircle.getRadius() / 2) - 5);
     }
@@ -29,11 +29,20 @@ public class DrawableObject {
         if (color.equals(Color.MAGENTA)) return "Magenta";
         if (color.equals(Color.CYAN)) return "Cyan";
         if (color.equals(Color.GRAY)) return "Gray";
-        return "Unknown"; // На случай других цветов
+        return "Unknown"; // For other colors
     }
 
     public void setPosition(int x, int y) {
         innerCircle = new Circle(x, y, innerCircle.getRadius(), innerCircle.getColor());
         outerCircle = new Circle(x, y, outerCircle.getRadius(), outerCircle.getColor());
+    }
+
+    // Getter methods for colors
+    public Color getInnerColor() {
+        return innerCircle.getColor();
+    }
+
+    public Color getOuterColor() {
+        return outerCircle.getColor();
     }
 }
