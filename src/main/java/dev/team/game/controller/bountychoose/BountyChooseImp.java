@@ -11,8 +11,8 @@ public class BountyChooseImp implements BountyChoose {
 
     @Override
     public Coordinate bountyChoose(TransportResponse transportResponse, List<Bounty> bountyList) {
+        BountyList bountySortList = new BountyList(transportResponse,bountyList);
 
-
-        return null;
+        return bountySortList.getMinDistanceBounty();
     }
 }
