@@ -6,6 +6,7 @@ import dev.team.models.TransportResponse;
 import lombok.Getter;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class EnemyList {
     private TransportResponse transportResponse;
@@ -20,7 +21,7 @@ public class EnemyList {
             Coordinate coordinateTransport = new Coordinate(transportResponse.getX(), transportResponse.getY());
             Coordinate coordinateEnemy = new Coordinate(enemy.getX(), enemy.getY());
 
-            addEnemyDistance(enemy, Coordinate.distance(coordinateTransport, coordinateEnemy.coordinatePlusSpeed(enemy.getVelocity(),0.400)));
+            addEnemyDistance(enemy, Coordinate.distance(coordinateTransport, coordinateEnemy.coordinatePlusSpeed(enemy.getVelocity(), 0.400)));
         }
 
         // Сортировка по health
@@ -40,6 +41,14 @@ public class EnemyList {
                 .min(Comparator.comparingInt(entry -> entry.getKey().getHealth())) // Находим минимальное здоровье
                 .map(Map.Entry::getKey) // Получаем Enemy
                 .orElse(null); // Если ничего не найдено, возвращаем null
+    }
+
+    // Метод для получения врагов в пределах дистанции, основанной на их скорости
+    public List<Enemy> getEnemiesWithinSpeedDistance() {
+        return enemyDistanceList.stream()
+                .filter(entry -> entry.getValue() < entry.getKey().getVelocity().length() * 2) // Фильтруем по условию
+                .map(Map.Entry::getKey) // Получаем Enemy
+                .collect(Collectors.toList()); // Собираем в список
     }
 
     @Override
