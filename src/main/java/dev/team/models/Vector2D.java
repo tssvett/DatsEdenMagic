@@ -31,7 +31,7 @@ public record Vector2D(Double x, Double y) {
 
         // Avoid division by zero
         if (magnitudeA == 0 || magnitudeB == 0) {
-            throw new IllegalArgumentException("Cannot calculate angle with zero-length vector.");
+            return 0;
         }
 
         // Calculate cosine of the angle
