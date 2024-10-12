@@ -32,6 +32,39 @@ public class MoveImpl implements Move {
         return new Vector2D(scaledX, scaledY);
     }
 
+    public Vector2D getAccelerationToPoint(
+            Coordinate ship, Coordinate point,
+            Vector2D speed, Vector2D accelerationAnomaly) {
+
+        // 1. Вычисляем вектор к цели
+        Vector2D vectorToTarget = new Vector2D(
+                point.getX() - ship.getX(),
+                point.getY() - ship.getY()
+        );
+
+        // 2. Находим расстояние до цели
+        double distance = Coordinate.distance(ship, point);
+
+        // 3. Приблизительное время прибытия (если двигаться с текущей скоростью)
+        double timeToReach = distance / speed.length();
+
+        // 4. Вычисляем требуемое ускорение a1 по формуле
+        double a1x = (2 * (vectorToTarget.x() - speed.x() * timeToReach)) / (timeToReach * timeToReach)
+                - accelerationAnomaly.x();
+        double a1y = (2 * (vectorToTarget.y() - speed.y() * timeToReach)) / (timeToReach * timeToReach)
+                - accelerationAnomaly.y();
+
+        Vector2D requiredAcceleration = new Vector2D(a1x, a1y);
+
+        // 5. Ограничиваем ускорение до MAX_ACCELERATION, если нужно
+        if (requiredAcceleration.length() > MAX_ACCELERATION) {
+            double scale = MAX_ACCELERATION / requiredAcceleration.length();
+            requiredAcceleration = requiredAcceleration.scale(scale);
+        }
+
+        return requiredAcceleration;
+    }
+
 //    public Vector2D getAccelerationToNearestBounty(TransportResponse myShip, List<Bounty> bountyList) {
 //        if (bountyList == null || bountyList.isEmpty()) {
 //            log.info("Корабль {} не может плыть к монеткам потому что их нет", myShip.getId());
@@ -54,7 +87,4 @@ public class MoveImpl implements Move {
 //
 //    }
 
-    private double calculateDistance(int x1, int y1, int x2, int y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    }
 }
