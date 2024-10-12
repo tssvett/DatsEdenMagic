@@ -16,4 +16,6 @@ public record Vector2D(Double x, Double y) {
     }
 
 
+
+
 }

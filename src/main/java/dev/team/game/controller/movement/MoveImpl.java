@@ -1,5 +1,6 @@
 package dev.team.game.controller.movement;
 
+import dev.team.models.Anomaly;
 import dev.team.models.Bounty;
 import dev.team.models.TransportResponse;
 import dev.team.models.Vector2D;
@@ -17,7 +18,7 @@ public class MoveImpl implements Move {
      * @return Вектор ускорения
      */
     @Override
-    public Vector2D getAccelerationToPoint(TransportResponse myShip, Vector2D targetPosition) {
+    public Vector2D getAccelerationToPoint(TransportResponse myShip, Vector2D targetPosition, Vector2D anomalyAcceleration) {
         // Текущие координаты ковра
         Vector2D currentPosition = new Vector2D(myShip.getX().doubleValue(), myShip.getY().doubleValue());
 
@@ -34,35 +35,36 @@ public class MoveImpl implements Move {
             double normX = dirX / length;
             double normY = dirY / length;
 
-            // Масштабируем до максимального ускорения
-            return new Vector2D(normX * MAX_ACCELERATION, normY * MAX_ACCELERATION);
+
         }
 
         // Если длина равна нулю, возвращаем нулевое ускорение
         return new Vector2D(0.0, 0.0);
     }
 
-    public Vector2D getAccelerationToNearestBounty(TransportResponse myShip, List<Bounty> bountyList) {
-        if (bountyList == null || bountyList.isEmpty()) {
-            log.info("Корабль {} не может плыть к монеткам потому что их нет", myShip.getId());
-            return null;
-        }
+    public
 
-        //Поиск ближайшей монетки для данного корабля
-
-        Bounty nearestBounty = null;
-        double minDistance = Double.MAX_VALUE;
-        for (Bounty bounty : bountyList) {
-            double distance = calculateDistance(myShip.getX(), myShip.getY(), bounty.getX(), bounty.getY());
-            if (distance < minDistance) {
-                minDistance = distance;
-                nearestBounty = bounty;
-            }
-        }
-        return getAccelerationToPoint(myShip, new Vector2D(nearestBounty.getX().doubleValue(), nearestBounty.getY().doubleValue()));
-
-
-    }
+//    public Vector2D getAccelerationToNearestBounty(TransportResponse myShip, List<Bounty> bountyList) {
+//        if (bountyList == null || bountyList.isEmpty()) {
+//            log.info("Корабль {} не может плыть к монеткам потому что их нет", myShip.getId());
+//            return null;
+//        }
+//
+//        //Поиск ближайшей монетки для данного корабля
+//
+//        Bounty nearestBounty = null;
+//        double minDistance = Double.MAX_VALUE;
+//        for (Bounty bounty : bountyList) {
+//            double distance = calculateDistance(myShip.getX(), myShip.getY(), bounty.getX(), bounty.getY());
+//            if (distance < minDistance) {
+//                minDistance = distance;
+//                nearestBounty = bounty;
+//            }
+//        }
+//        return getAccelerationToPoint(myShip, new Vector2D(nearestBounty.getX().doubleValue(), nearestBounty.getY().doubleValue()));
+//
+//
+//    }
 
     private double calculateDistance(int x1, int y1, int x2, int y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
