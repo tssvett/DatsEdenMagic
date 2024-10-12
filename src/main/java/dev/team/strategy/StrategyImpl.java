@@ -11,6 +11,7 @@ import dev.team.game.controller.defence.ShieldImpl;
 import dev.team.game.controller.movement.Move;
 import dev.team.game.controller.movement.MoveImpl;
 import dev.team.game.workvector.Coordinate;
+import dev.team.models.Anomaly;
 import dev.team.models.Bounty;
 import dev.team.models.Enemy;
 import dev.team.models.TransportRequest;
@@ -30,23 +31,24 @@ public class StrategyImpl implements Strategy {
 
         List<TransportResponse> myShips = moveResponse.transports();
         List<Enemy> enemies = moveResponse.enemies();
+        List<Anomaly> anomalies = moveResponse.anomalies();
         List<Bounty> bounties = moveResponse.bounties();
 
-        List<TransportRequest> transports = new ArrayList<>();
+        List<TransportRequest> moveRequests = new ArrayList<>();
         for (TransportResponse myShip : myShips) {
-            Vector2D coordinatesForAttack = attack.getCoordinatesForAttack(myShip, enemies);
+            Coordinate coordinates = attack.getCoordinatesForAttack(myShip, enemies);
             boolean needToActivateShield = shield.isNeedToActivateShield(myShip, enemies);
 
+
             Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
-            System.out.println(myShip);
             Vector2D acceleration = move.getMaxAccelerationToPointWithoutAnomaly(myShip, nearestMoneyCoordinates);
-            transports.add(new TransportRequest(
+            moveRequests.add(new TransportRequest(
                     acceleration,
                     needToActivateShield,
-                    coordinatesForAttack,
+                    coordinates,
                     myShip.getId()
             ));
         }
-        return new MoveRequest(transports);
+        return new MoveRequest(moveRequests);
     }
 }
