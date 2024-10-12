@@ -1,5 +1,6 @@
 package dev.team.game.workvector;
 
+import dev.team.models.Vector2D;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,5 +32,13 @@ public class Coordinate {
     // Метод для вычисления расстояния между двумя точками
     public static double distance(Coordinate a, Coordinate b) {
         return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
+    }
+    public Coordinate coordinatePlusSpeed(Vector2D speed, double time) {
+        // Вычисляем новое положение
+        double newX = this.x + speed.x() * time;
+        double newY = this.y + speed.y() * time;
+
+        // Возвращаем новую координату
+        return new Coordinate((int)newX, (int)newY);
     }
 }
