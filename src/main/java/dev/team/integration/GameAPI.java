@@ -24,6 +24,7 @@ public class GameAPI {
                 .bodyValue(moveRequest)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, clientResponse -> {
+                    moveRequest.transports().stream().forEach(transport -> log.info(transport.getAcceleration().toString()));
                     // Получаем тип контента
                     String contentType = clientResponse.headers().contentType().map(MediaType::toString).orElse("unknown");
 

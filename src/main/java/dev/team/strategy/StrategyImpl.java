@@ -31,7 +31,6 @@ public class StrategyImpl implements Strategy {
 
         List<TransportResponse> myShips = moveResponse.transports();
         List<Enemy> enemies = moveResponse.enemies();
-        List<Anomaly> anomalies = moveResponse.anomalies();
         List<Bounty> bounties = moveResponse.bounties();
 
         List<TransportRequest> moveRequests = new ArrayList<>();
@@ -41,7 +40,8 @@ public class StrategyImpl implements Strategy {
 
 
             Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
-            Vector2D acceleration = move.getMaxAccelerationToPointWithoutAnomaly(myShip, nearestMoneyCoordinates);
+            Vector2D acceleration = move.getAccelerationToPoint(myShip, nearestMoneyCoordinates);
+            System.out.println(acceleration.toString());
             moveRequests.add(new TransportRequest(
                     acceleration,
                     needToActivateShield,
