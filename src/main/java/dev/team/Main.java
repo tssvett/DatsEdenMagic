@@ -18,7 +18,7 @@ public class Main {
     public static final String PROD_URL = "https://games.datsteam.dev";
     public static final String TEST_URL = "https://games-test.datsteam.dev";
     public static void main(String[] args) {
-        WebClient webClient = new WebClientCreator(PROD_URL, TOKEN).webClient();
+        WebClient webClient = new WebClientCreator(TEST_URL, TOKEN).webClient();
 
         GameAPI gameAPI = new GameAPI(webClient);
         GameRenderer renderer = new GameRenderer();

@@ -50,20 +50,17 @@ public class BountyList {
                 .map(Map.Entry::getKey) // Получаем Bounty
                 .map(bounty -> new Coordinate(bounty.getX(), bounty.getY())) // Преобразуем в Coordinate
                 .orElseGet(() -> {
-                    /*
+
                     if (!bountyDistanceList.isEmpty()) {
                         return new Coordinate(bountyDistanceList.get(0).getKey().getX(),
                                 bountyDistanceList.get(0).getKey().getY());
-                    }
-                    else
-
-                     */
-                    // Если ничего не найдено, возвращаем центр
-                    return new Coordinate(7500, 7500);
+                    } else
+                        // Если ничего не найдено, возвращаем центр
+                        return new Coordinate(7500, 7500);
                 });
     }
 
-    public Coordinate getCoordinateForCenterBounty(){
+    public Coordinate getCoordinateForCenterBounty() {
         Vector2D vector2D = Vector2D.getVectorFromCoordinate(new Coordinate(transportResponse.getX(), transportResponse.getY()), new Coordinate(7500, 7500));
         return bountyDistanceList.stream()
                 .filter(entry -> {

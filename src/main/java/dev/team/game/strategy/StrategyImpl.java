@@ -55,7 +55,7 @@ public class StrategyImpl implements Strategy {
             int currentMinutes = currentTime.getMinute();
 
 
-            if (currentMinutes < 7) {
+            if (currentMinutes < 30) {
                 Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
 
                 if (myShip.getVelocity().length() < 40) {
