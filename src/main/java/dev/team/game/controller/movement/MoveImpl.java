@@ -44,8 +44,8 @@ public class MoveImpl implements Move {
         Coordinate ship = new Coordinate(transportResponse.getX(), transportResponse.getY());
         // 1. Вычисляем вектор к цели
         Vector2D vectorToTarget = new Vector2D(
-                point.getX() - ship.getX(),
-                point.getY() - ship.getY()
+                point.getX().doubleValue() - ship.getX(),
+                point.getY().doubleValue() - ship.getY()
         );
 
         // 2. Находим расстояние до цели

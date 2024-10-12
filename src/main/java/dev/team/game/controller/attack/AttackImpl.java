@@ -1,5 +1,6 @@
 package dev.team.game.controller.attack;
 
+import dev.team.game.workvector.Coordinate;
 import dev.team.models.Enemy;
 import dev.team.models.TransportResponse;
 import dev.team.models.Vector2D;
@@ -21,7 +22,7 @@ public class AttackImpl implements Attack {
      * @return Координаты для атаки
      */
     @Override
-    public Vector2D getCoordinatesForAttack(TransportResponse myShip, List<Enemy> enemiesList) {
+    public Coordinate getCoordinatesForAttack(TransportResponse myShip, List<Enemy> enemiesList) {
         if (enemiesList == null || enemiesList.isEmpty()) {
             log.info("Корабль {} не имеет врагов для атаки", myShip.getId());
             return null; // Нет врагов для атакиЫ
@@ -39,13 +40,15 @@ public class AttackImpl implements Attack {
 
             // Проверяем, находится ли враг в зоне поражения и в радиусе дальности
             if (distance <= ATTACK_RANGE + ATTACK_RADIUS && "alive".equals(enemy.getStatus())) {
-                return new Vector2D(enemy.getX().doubleValue(), enemy.getY().doubleValue()); // Возвращаем координаты врага для атаки
+                return new Coordinate(enemy.getX(), enemy.getY()); // Возвращаем координаты врага для атаки. Ебашим по врагу
             }
         }
 
         log.info("Ковер {} не имеет врагов для атаки", myShip.getId());
         return null;
     }
+
+//    private Vector2D getVectorForAttack(Enemy enemy)
 
     // Метод для вычисления расстояния между двумя точками
     private double calculateDistance(int x1, int y1, int x2, int y2) {
