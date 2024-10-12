@@ -76,4 +76,6 @@ public class GameCameraController extends JPanel implements KeyListener {
         renderer.setScaleFactor(newScale); // Update scale factor in renderer
         System.out.println("Scale decreased: " + newScale);
     }
+
+
 }
