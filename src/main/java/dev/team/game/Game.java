@@ -20,7 +20,7 @@ public class Game {
 
     public void run() {
         applyJFrame();
-        Timer timer = new Timer(2000, e -> runLoop());
+        Timer timer = new Timer(300, e -> runLoop());
         timer.start();
     }
 

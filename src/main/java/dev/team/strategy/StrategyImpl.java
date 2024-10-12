@@ -40,5 +40,6 @@ public class StrategyImpl implements Strategy {
             Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
             move.getMaxAccelerationToPointWithoutAnomaly(myShip, nearestMoneyCoordinates);
         }
+        return null;
     }
 }
