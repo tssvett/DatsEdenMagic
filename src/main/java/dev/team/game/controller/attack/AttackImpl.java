@@ -24,7 +24,7 @@ public class AttackImpl implements Attack {
     public Vector2D getCoordinatesForAttack(TransportResponse myShip, List<Enemy> enemiesList) {
         if (enemiesList == null || enemiesList.isEmpty()) {
             log.info("Корабль {} не имеет врагов для атаки", myShip.getId());
-            return null; // Нет врагов для атаки
+            return null; // Нет врагов для атакиЫ
         }
 
         // Проверяем, готов ли ковер к атаке
