@@ -1,9 +1,12 @@
 package dev.team.game.controller.movement;
 
 import dev.team.game.workvector.Coordinate;
+import dev.team.models.Bounty;
 import dev.team.models.TransportResponse;
 import dev.team.models.Vector2D;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Slf4j
 public class MoveImpl implements Move {
@@ -33,9 +36,12 @@ public class MoveImpl implements Move {
     }
 
     public Vector2D getAccelerationToPoint(
-            Coordinate ship, Coordinate point,
-            Vector2D speed, Vector2D accelerationAnomaly) {
+            TransportResponse transportResponse, Coordinate point) {
 
+        Vector2D speed = transportResponse.getVelocity();
+        Vector2D accelerationAnomaly = transportResponse.getAnomalyAcceleration();
+
+        Coordinate ship = new Coordinate(transportResponse.getX(), transportResponse.getY());
         // 1. Вычисляем вектор к цели
         Vector2D vectorToTarget = new Vector2D(
                 point.getX() - ship.getX(),
@@ -65,26 +71,6 @@ public class MoveImpl implements Move {
         return requiredAcceleration;
     }
 
-//    public Vector2D getAccelerationToNearestBounty(TransportResponse myShip, List<Bounty> bountyList) {
-//        if (bountyList == null || bountyList.isEmpty()) {
-//            log.info("Корабль {} не может плыть к монеткам потому что их нет", myShip.getId());
-//            return null;
-//        }
-//
-//        //Поиск ближайшей монетки для данного корабля
-//
-//        Bounty nearestBounty = null;
-//        double minDistance = Double.MAX_VALUE;
-//        for (Bounty bounty : bountyList) {
-//            double distance = calculateDistance(myShip.getX(), myShip.getY(), bounty.getX(), bounty.getY());
-//            if (distance < minDistance) {
-//                minDistance = distance;
-//                nearestBounty = bounty;
-//            }
-//        }
-//        return getAccelerationToPoint(myShip, new Vector2D(nearestBounty.getX().doubleValue(), nearestBounty.getY().doubleValue()));
-//
-//
-//    }
+
 
 }

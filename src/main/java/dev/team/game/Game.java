@@ -25,9 +25,9 @@ public class Game {
     }
 
     private void runLoop() {
-        //MoveResponse moveResponse = gameAPI.sendMoveRequest();
+        MoveResponse moveResponse = gameAPI.sendMoveRequest();
         //MoveResponse moveResponse = MoveResponseJsonService.loadFromJson(getNameFile());
-        MoveResponse moveResponse = MoveResponseJsonService.loadFromJson("moveResponse1.json");
+        //MoveResponse moveResponse = MoveResponseJsonService.loadFromJson("moveResponse1.json");
         renderer.draw(ConvertToListDrawObjects.convertToListDrawObjects(moveResponse));
 
         //Logic
