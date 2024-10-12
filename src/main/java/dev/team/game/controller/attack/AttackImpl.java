@@ -25,24 +25,27 @@ public class AttackImpl implements Attack {
     @Override
     public Coordinate getCoordinatesForAttack(TransportResponse myShip, List<Enemy> enemiesList) {
         if (enemiesList == null || enemiesList.isEmpty()) {
-            log.info("Корабль {} не имеет врагов для атаки", myShip.getId());
+            log.debug("Корабль {} не имеет врагов для атаки", myShip.getId());
             return null; // Нет врагов для атакиЫ
         }
 
         // Проверяем, готов ли ковер к атаке
         if (myShip.getAttackCooldownMs() > 0) {
-            log.info("Ковер {} перезаряжается", myShip.getId());
+            log.debug("Ковер {} перезаряжается", myShip.getId());
             return null; // Ковер не готов к атаке
         }
         EnemyChooseImp chooseEnemy = new EnemyChooseImp();
         Enemy enemy = chooseEnemy.chooseEnemy(myShip,enemiesList);
         if (enemy!=null) {
             Coordinate coordinateAttack = new Coordinate(enemy.getX(), enemy.getY());
-            return coordinateAttack.coordinatePlusSpeed(enemy.getVelocity(), 0.4);// Возвращаем координаты врага для атаки. Ебашим по врагу
+
+            Coordinate coordinate = coordinateAttack.coordinatePlusSpeed(enemy.getVelocity(), 0.4);// Возвращаем координаты врага для атаки. Ебашим по врагу
+            log.info("Ковер {} атакует врага по координатам {} {}", myShip.getId(), coordinate.getX(), coordinate.getY());
+            return coordinate;
         }
 
 
-        log.info("Ковер {} не имеет врагов для атаки",myShip.getId());
+        log.debug("Ковер {} не имеет врагов для атаки",myShip.getId());
         return null;
 }
 
