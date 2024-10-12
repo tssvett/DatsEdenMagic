@@ -1,4 +1,4 @@
-package dev.team.geom;
+package dev.team.game.workvector;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

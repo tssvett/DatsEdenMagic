@@ -1,12 +1,9 @@
 package dev.team.game.controller.movement;
 
-import dev.team.models.Anomaly;
-import dev.team.models.Bounty;
+import dev.team.game.workvector.Coordinate;
 import dev.team.models.TransportResponse;
 import dev.team.models.Vector2D;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 @Slf4j
 public class MoveImpl implements Move {
@@ -18,7 +15,7 @@ public class MoveImpl implements Move {
      * @return Вектор ускорения
      */
     @Override
-    public Vector2D getAccelerationToPoint(TransportResponse myShip, Vector2D targetPosition, Vector2D anomalyAcceleration) {
+    public Vector2D getAccelerationToPoint(TransportResponse myShip, Coordinate, Vector2D anomalyAcceleration) {
         // Текущие координаты ковра
         Vector2D currentPosition = new Vector2D(myShip.getX().doubleValue(), myShip.getY().doubleValue());
 

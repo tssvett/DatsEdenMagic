@@ -1,6 +1,6 @@
 package dev.team;
 
-import dev.team.geom.Coordinate;
+import dev.team.game.workvector.Coordinate;
 
 public class Move {
 
