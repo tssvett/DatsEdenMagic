@@ -15,7 +15,7 @@ public class MoveImpl implements Move {
      * @return Вектор ускорения
      */
     @Override
-    public Vector2D getAccelerationToPoint(TransportResponse myShip, Coordinate, Vector2D anomalyAcceleration) {
+    public Vector2D getAccelerationToPoint(TransportResponse myShip, Coordinate point, Vector2D anomalyAcceleration) {
         // Текущие координаты ковра
         Vector2D currentPosition = new Vector2D(myShip.getX().doubleValue(), myShip.getY().doubleValue());
 
@@ -39,7 +39,32 @@ public class MoveImpl implements Move {
         return new Vector2D(0.0, 0.0);
     }
 
-    public
+    public Vector2D getAccelerationToPointWithoutAnomaly(TransportResponse transport, Coordinate point) {
+        Coordinate transportCoord = new Coordinate(transport.getX(), transport.getY());
+
+        // 1. Вычисляем вектор AB
+        Coordinate vectorAB = Coordinate.vectorBetween(transportCoord, point);
+
+        // 2. Вычисляем длину вектора AB
+        double lengthAB = Coordinate.distance(transportCoord, point);
+
+        // 3. Ограничение на максимальное ускорение
+        double maxAcceleration = MAX_ACCELERATION;
+
+        // 4. Если длина вектора меньше или равна максимальному ускорению, возвращаем его
+        if (lengthAB <= maxAcceleration) {
+            return new Vector2D(vectorAB.getX(), vectorAB.getY());
+        }
+
+        // 5. Вычисляем коэффициент масштабирования
+        double scalingFactor = maxAcceleration / lengthAB;
+
+        // 6. Масштабируем вектор AB
+        double scaledX = vectorAB.getX() * scalingFactor;
+        double scaledY = vectorAB.getY() * scalingFactor;
+
+        return new Vector2D(scaledX, scaledY);
+    }
 
 //    public Vector2D getAccelerationToNearestBounty(TransportResponse myShip, List<Bounty> bountyList) {
 //        if (bountyList == null || bountyList.isEmpty()) {
