@@ -36,7 +36,7 @@ public class MoveImpl implements Move {
         return new Vector2D(scaledX, scaledY);
     }
 
-    public Vector2D getAccelerationToPoint(
+    public Vector2D getAccelerationToPointForSmallSpeed(
             TransportResponse transportResponse, Coordinate point) {
 
         Vector2D speed = transportResponse.getVelocity();
@@ -69,15 +69,59 @@ public class MoveImpl implements Move {
         Vector2D requiredAcceleration = new Vector2D(a1x, a1y);
 
         // 5. Ограничиваем ускорение до MAX_ACCELERATION, если нужно
-//        if (requiredAcceleration.length() > MAX_ACCELERATION) {
-//            double scale = MAX_ACCELERATION / requiredAcceleration.length();
-//            requiredAcceleration = requiredAcceleration.scale(scale);
-//        }
-        requiredAcceleration = requiredAcceleration.scale(MAX_ACCELERATION / requiredAcceleration.length());
+        if (requiredAcceleration.length() < 50 || requiredAcceleration.length() > MAX_ACCELERATION) {
+            requiredAcceleration = requiredAcceleration.scale(MAX_ACCELERATION / requiredAcceleration.length());
+        }
 
         return requiredAcceleration;
     }
 
+    public Vector2D getAccelerationToPointForBigSpeed(
+            TransportResponse transportResponse, Coordinate point) {
+
+        Vector2D speed = transportResponse.getVelocity();
+        Vector2D accelerationAnomaly = transportResponse.getAnomalyAcceleration();
+        Coordinate ship = new Coordinate(transportResponse.getX(), transportResponse.getY());
+
+        // 1. Вычисляем вектор к цели
+        Vector2D vectorToTarget = new Vector2D(
+                point.getX().doubleValue() - ship.getX(),
+                point.getY().doubleValue() - ship.getY()
+        );
+
+        // 2. Находим расстояние до цели
+        double distance = Coordinate.distance(ship, point);
+
+        // 3. Приблизительное время прибытия (если двигаться с текущей скоростью)
+        double timeToReach = (speed.length() == 0)
+                ? distance / MAX_SPEED
+                : distance / speed.length();
+
+        // 4. Вычисляем требуемое ускорение a1 по формуле
+        double a1x = (2 * (vectorToTarget.x() - speed.x() * timeToReach)) / (timeToReach * timeToReach)
+                - accelerationAnomaly.x();
+        double a1y = (2 * (vectorToTarget.y() - speed.y() * timeToReach)) / (timeToReach * timeToReach)
+                - accelerationAnomaly.y();
+
+        Vector2D requiredAcceleration = new Vector2D(a1x, a1y);
+
+        // 5. Ограничиваем ускорение до MAX_ACCELERATION для плавности
+        double accelerationMagnitude = requiredAcceleration.length();
+        if (accelerationMagnitude > MAX_ACCELERATION) {
+            requiredAcceleration = requiredAcceleration.scale(MAX_ACCELERATION / accelerationMagnitude);
+        }
+
+        // 6. Демпфирование для плавного движения (затухание ускорения)
+        final double DAMPING_FACTOR = 0.1;  // Регулирует плавность
+        requiredAcceleration = requiredAcceleration.scale(1 - DAMPING_FACTOR);
+
+        // 7. Избегаем мелких изменений ускорения (например, менее 1)
+        if (accelerationMagnitude < 1) {
+            return new Vector2D(0.0, 0.0);  // Прекращаем корректировки
+        }
+
+        return requiredAcceleration;
+    }
 
 
 }

@@ -11,7 +11,6 @@ import dev.team.game.controller.defence.ShieldImpl;
 import dev.team.game.controller.movement.Move;
 import dev.team.game.controller.movement.MoveImpl;
 import dev.team.game.workvector.Coordinate;
-import dev.team.models.Anomaly;
 import dev.team.models.Bounty;
 import dev.team.models.Enemy;
 import dev.team.models.TransportRequest;
@@ -40,7 +39,13 @@ public class StrategyImpl implements Strategy {
 
 
             Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
-            Vector2D acceleration = move.getAccelerationToPoint(myShip, nearestMoneyCoordinates);
+            Vector2D acceleration;
+            if (myShip.getVelocity().length()<20){
+                acceleration = move.getAccelerationToPointForSmallSpeed(myShip, nearestMoneyCoordinates);
+            }
+            else{
+                acceleration = move.getAccelerationToPointForBigSpeed(myShip, nearestMoneyCoordinates);
+            }
             moveRequests.add(new TransportRequest(
                     acceleration,
                     needToActivateShield,
