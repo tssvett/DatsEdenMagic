@@ -5,9 +5,10 @@ import dev.team.models.Bounty;
 import dev.team.models.TransportResponse;
 import dev.team.models.Vector2D;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
-
+@Slf4j
 public class BountyList {
     private static final int CENTER_X = 7500;
     private static final int CENTER_Y = 7500;
@@ -42,8 +43,8 @@ public class BountyList {
                     Bounty bounty = entry.getKey();
                     Vector2D bountyVector = new Vector2D((double) (bounty.getX() - transportResponse.getX()), (double) (bounty.getY() - transportResponse.getY()));
                     double angle = vector2D.angleVectors(bountyVector); // Предполагается, что метод angleVectors реализован
-                    //
                     double bestAngle = 45.0 + (45.0 - (9.0 / 15.0) * transportResponse.getVelocity().length());
+                    log.debug("Best angle: " + bestAngle);
                     return angle <= (int) bestAngle; // Фильтруем по углу (<= 90 градусов)
                 })
                 .min(Comparator.comparingDouble(Map.Entry::getValue)) // Находим минимальную дистанцию
@@ -72,6 +73,7 @@ public class BountyList {
                     double angle = vector2D.angleVectors(bountyVector); // Предполагается, что метод angleVectors реализован
                     //
                     double bestAngle = 45.0 + (45.0 - (9.0 / 15.0) * transportResponse.getVelocity().length());
+                    log.debug("Best angle: " + bestAngle);
                     return angle <= (int) bestAngle; // Фильтруем по углу (<= 90 градусов)
                 })
                 .min(Comparator.comparingDouble(Map.Entry::getValue)) // Находим минимальную дистанцию

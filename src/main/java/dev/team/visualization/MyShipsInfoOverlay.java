@@ -21,7 +21,7 @@ public class MyShipsInfoOverlay extends JPanel {
 
         infoBuilder.append("My Ship List:\n");
         for (TransportResponse ally : moveResponse.transports()) {
-            infoBuilder.append("Ship ").append(ally.getX()).append(", ").append(ally.getY()).append(" Health: ").append(ally.getHealth()).append("\n"); // Add each item in the wanted list
+            infoBuilder.append(ally.getId()).append(": ").append(ally.getX()).append(", ").append(ally.getY()).append(" Health: ").append(ally.getHealth()).append("\n"); // Add each item in the wanted list
         }
 
         // Update infoText with the complete information

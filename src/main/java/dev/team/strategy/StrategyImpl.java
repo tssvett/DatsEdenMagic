@@ -40,6 +40,7 @@ public class StrategyImpl implements Strategy {
         boolean isReachPoint = true;
 
         List<TransportRequest> moveRequests = new ArrayList<>();
+        int i = 1;
         for (TransportResponse myShip : myShips) {
             Coordinate coordinates = attack.getCoordinatesForAttack(myShip, enemies);
             boolean needToActivateShield = shield.isNeedToActivateShieldWhenHpIsLow(myShip, enemies);
@@ -55,8 +56,7 @@ public class StrategyImpl implements Strategy {
             int currentMinutes = currentTime.getMinute();
 
 
-
-            if(currentMinutes < 7){
+            if (currentMinutes < 7) {
                 Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
                 if (myShip.getVelocity().length() < 20) {
                     acceleration = move.getAccelerationToPointForSmallSpeed(myShip, nearestMoneyCoordinates);
@@ -69,13 +69,13 @@ public class StrategyImpl implements Strategy {
                         coordinates,
                         myShip.getId()
                 ));
-            }
-            else{
+            } else {
                 if (
                         (myShip.getX() <= CENTER_LOW || myShip.getX() >= CENTER_HIGH)
-                        || ((myShip.getY() <= CENTER_LOW || myShip.getY() >= CENTER_HIGH))
-                ){
+                                || ((myShip.getY() <= CENTER_LOW || myShip.getY() >= CENTER_HIGH))
+                ) {
                     Coordinate nearestMoneyCoordinates = bountyChoose.bountyChooseForCenter(myShip, bounties);
+                    log.info("Корабль {} иду в координату ({} {})\n", i, nearestMoneyCoordinates.getX(), nearestMoneyCoordinates.getY());
                     if (myShip.getVelocity().length() < 20) {
                         acceleration = move.getAccelerationToPointForSmallSpeed(myShip, nearestMoneyCoordinates);
                     } else {
@@ -87,8 +87,7 @@ public class StrategyImpl implements Strategy {
                             coordinates,
                             myShip.getId()
                     ));
-                }
-                else {
+                } else {
                     Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
                     if (myShip.getVelocity().length() < 20) {
                         acceleration = move.getAccelerationToPointForSmallSpeed(myShip, nearestMoneyCoordinates);
@@ -105,6 +104,7 @@ public class StrategyImpl implements Strategy {
 
 
             }
+            i++;
         }
         return new MoveRequest(moveRequests);
     }
