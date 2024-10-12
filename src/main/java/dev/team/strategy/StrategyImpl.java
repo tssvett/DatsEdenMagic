@@ -11,12 +11,13 @@ import dev.team.game.controller.defence.ShieldImpl;
 import dev.team.game.controller.movement.Move;
 import dev.team.game.controller.movement.MoveImpl;
 import dev.team.game.workvector.Coordinate;
-import dev.team.models.Anomaly;
 import dev.team.models.Bounty;
 import dev.team.models.Enemy;
+import dev.team.models.TransportRequest;
 import dev.team.models.TransportResponse;
 import dev.team.models.Vector2D;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StrategyImpl implements Strategy {
@@ -25,20 +26,27 @@ public class StrategyImpl implements Strategy {
         Attack attack = new AttackImpl();
         Shield shield = new ShieldImpl();
         Move move = new MoveImpl();
+        BountyChoose bountyChoose = new BountyChooseImp();
 
         List<TransportResponse> myShips = moveResponse.transports();
         List<Enemy> enemies = moveResponse.enemies();
-        List<Anomaly> anomalies = moveResponse.anomalies();
         List<Bounty> bounties = moveResponse.bounties();
 
+        List<TransportRequest> transports = new ArrayList<>();
         for (TransportResponse myShip : myShips) {
-            attack.getCoordinatesForAttack(myShip, enemies);
-            shield.isNeedToActivateShield(myShip, enemies);
+            Vector2D coordinatesForAttack = attack.getCoordinatesForAttack(myShip, enemies);
+            boolean needToActivateShield = shield.isNeedToActivateShield(myShip, enemies);
 
-
-            BountyChoose bountyChoose = new BountyChooseImp();
             Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
-            move.getMaxAccelerationToPointWithoutAnomaly(myShip, nearestMoneyCoordinates);
+            System.out.println(myShip);
+            Vector2D acceleration = move.getMaxAccelerationToPointWithoutAnomaly(myShip, nearestMoneyCoordinates);
+            transports.add(new TransportRequest(
+                    acceleration,
+                    needToActivateShield,
+                    coordinatesForAttack,
+                    myShip.getId()
+            ));
         }
+        return new MoveRequest(transports);
     }
 }

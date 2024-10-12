@@ -4,6 +4,8 @@ import dev.team.config.WebClientCreator;
 import dev.team.game.Game;
 import dev.team.game.GameCameraController;
 import dev.team.integration.GameAPI;
+import dev.team.strategy.Strategy;
+import dev.team.strategy.StrategyImpl;
 import dev.team.visualization.GameRenderer;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +23,10 @@ public class Main {
         GameAPI gameAPI = new GameAPI(webClient);
         GameRenderer renderer = new GameRenderer();
         GameCameraController controller = new GameCameraController(renderer);
+        Strategy strategy = new StrategyImpl();
 
 
-        Game game = new Game(renderer, controller, gameAPI);
+        Game game = new Game(renderer, controller, gameAPI, strategy);
         game.run();
     }
 }

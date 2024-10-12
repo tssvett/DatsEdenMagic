@@ -24,8 +24,26 @@ public class GameAPI {
                 .bodyValue(moveRequest)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, clientResponse -> {
+                    // Получаем тип контента
+                    String contentType = clientResponse.headers().contentType().map(MediaType::toString).orElse("unknown");
+
+                    // Логируем ошибку
                     log.error("Error response: {}", clientResponse);
-                    return Mono.error(new RuntimeException(clientResponse.toString()));
+
+                    // Обрабатываем текстовый ответ
+                    if (contentType.equals("text/plain;charset=utf-8")) {
+                        return clientResponse.bodyToMono(String.class)
+                                .flatMap(errorMessage -> {
+                                    log.error("Received error message: {}", errorMessage);
+                                    return Mono.error(new RuntimeException(errorMessage));
+                                });
+                    } else {
+                        return clientResponse.bodyToMono(ErrorDetails.class)
+                                .flatMap(errorDetails -> {
+                                    log.error("Error details: {}", errorDetails);
+                                    return Mono.error(new RuntimeException(errorDetails.error()));
+                                });
+                    }
                 })
                 .bodyToMono(new ParameterizedTypeReference<MoveResponse>() {
                 })
