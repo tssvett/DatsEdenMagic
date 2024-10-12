@@ -5,6 +5,7 @@ import dev.team.models.Anomaly;
 import dev.team.models.Bounty;
 import dev.team.models.Enemy;
 import dev.team.models.TransportResponse;
+import dev.team.models.Vector2D;
 import dev.team.visualization.objectsdraw.drawable.DrawableObject;
 import dev.team.visualization.objectsdraw.drawable.extend.DrawableAlly;
 import dev.team.visualization.objectsdraw.drawable.extend.DrawableAnomaly;
@@ -28,7 +29,7 @@ public class ConvertToListDrawObjects {
         }
 
         for (TransportResponse transport : transports) {
-            drawObjects.add(new DrawableAlly(transport.getX(), transport.getY(), transport.getHealth(), transport.getVelocity()));
+            drawObjects.add(new DrawableAlly(transport.getX(), transport.getY(), transport.getHealth(), transport.getVelocity(), Vector2D.sumVectors(List.of(transport.getSelfAcceleration(), transport.getAnomalyAcceleration()))));
         }
 
         for (Anomaly anomaly : anomalies) {

@@ -15,18 +15,21 @@ public class DrawableAlly extends DrawableObject {
 
     private int HP;
     private Vector2D velocity;
+    private Vector2D acceleration;
 
-    public DrawableAlly(int x, int y, int HP, Vector2D velocity) {
+    public DrawableAlly(int x, int y, int HP, Vector2D velocity, Vector2D acceleration) {
         super(x, y, allyShipSize, innerColor, outerRadius, outerColor);
         this.HP = HP;
         this.velocity = velocity;
+        this.acceleration = acceleration;
     }
 
     @Override
     public void draw(Graphics g) {
         drawHP(g);
         drawBody(g);
-        drawVelocityArrow(g);
+        drawVector(g, velocity, Color.black);
+        drawVector(g, acceleration, Color.RED);
         drawAttackRadius(g); // Draw the attack radius
     }
 
@@ -56,7 +59,7 @@ public class DrawableAlly extends DrawableObject {
         g.setFont(originalFont);
     }
 
-    private void drawVelocityArrow(Graphics g) {
+    private void drawVector(Graphics g, Vector2D vector, Color color) {
         // Cast Graphics to Graphics2D for better control
         Graphics2D g2d = (Graphics2D) g;
 
@@ -68,18 +71,18 @@ public class DrawableAlly extends DrawableObject {
         int centerY = innerCircle.getY();
 
         // Calculate arrow length based on velocity magnitude
-        double velocityMagnitude = velocity.magnitude();
+        double velocityMagnitude = vector.magnitude();
         double arrowLength = Math.min(velocityMagnitude * 2, 50); // Scale and limit length
 
         // Calculate angle from velocity vector
-        double angle = Math.atan2(velocity.y(), velocity.x()); // Use y first for atan2
+        double angle = Math.atan2(vector.y(), vector.x()); // Use y first for atan2
 
         // Calculate end point of the arrow
         int endX = (int) (centerX + arrowLength * Math.cos(angle));
         int endY = (int) (centerY + arrowLength * Math.sin(angle));
 
         // Draw line for arrow shaft
-        g2d.setColor(Color.BLACK); // Set arrow color to black
+        g2d.setColor(color); // Set arrow color to black
         g2d.drawLine(centerX, centerY, endX, endY); // Draw the shaft of the arrow
 
         // Draw arrowhead (two lines)
@@ -98,6 +101,7 @@ public class DrawableAlly extends DrawableObject {
         // Reset stroke to default if necessary
         g2d.setStroke(new BasicStroke(1)); // Resetting stroke to default thickness
     }
+
 
     private void drawAttackRadius(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;

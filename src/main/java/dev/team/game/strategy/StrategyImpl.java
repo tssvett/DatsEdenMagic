@@ -58,11 +58,15 @@ public class StrategyImpl implements Strategy {
 
             if (currentMinutes < 7) {
                 Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
+                /*
                 if (myShip.getVelocity().length() < 20) {
                     acceleration = move.getAccelerationToPointForSmallSpeed(myShip, nearestMoneyCoordinates);
                 } else {
                     acceleration = move.getAccelerationToPointForBigSpeed(myShip, nearestMoneyCoordinates);
                 }
+
+                 */
+                acceleration = move.getMaxAccelerationToPointWithoutAnomaly(myShip, nearestMoneyCoordinates);
                 moveRequests.add(new TransportRequest(
                         acceleration,
                         needToActivateShield,
@@ -76,11 +80,14 @@ public class StrategyImpl implements Strategy {
                 ) {
                     Coordinate nearestMoneyCoordinates = bountyChoose.bountyChooseForCenter(myShip, bounties);
                     log.info("Корабль {} иду в координату ({} {})\n", i, nearestMoneyCoordinates.getX(), nearestMoneyCoordinates.getY());
+                    /*
                     if (myShip.getVelocity().length() < 20) {
                         acceleration = move.getAccelerationToPointForSmallSpeed(myShip, nearestMoneyCoordinates);
                     } else {
                         acceleration = move.getAccelerationToPointForBigSpeed(myShip, nearestMoneyCoordinates);
                     }
+                    */
+                    acceleration = move.getMaxAccelerationToPointWithoutAnomaly(myShip, nearestMoneyCoordinates);
                     moveRequests.add(new TransportRequest(
                             acceleration,
                             needToActivateShield,
@@ -89,11 +96,14 @@ public class StrategyImpl implements Strategy {
                     ));
                 } else {
                     Coordinate nearestMoneyCoordinates = bountyChoose.bountyChoose(myShip, bounties);
+                    /*
                     if (myShip.getVelocity().length() < 20) {
                         acceleration = move.getAccelerationToPointForSmallSpeed(myShip, nearestMoneyCoordinates);
                     } else {
                         acceleration = move.getAccelerationToPointForBigSpeed(myShip, nearestMoneyCoordinates);
                     }
+                    */
+                    acceleration = move.getMaxAccelerationToPointWithoutAnomaly(myShip, nearestMoneyCoordinates);
                     moveRequests.add(new TransportRequest(
                             acceleration,
                             needToActivateShield,

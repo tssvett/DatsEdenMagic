@@ -43,8 +43,8 @@ public class BountyList {
                     Bounty bounty = entry.getKey();
                     Vector2D bountyVector = new Vector2D((double) (bounty.getX() - transportResponse.getX()), (double) (bounty.getY() - transportResponse.getY()));
                     double angle = vector2D.angleVectors(bountyVector); // Предполагается, что метод angleVectors реализован
-                    double bestAngle = 45.0 + (45.0 - (9.0 / 15.0) * transportResponse.getVelocity().length());
-                    log.debug("Best angle: " + bestAngle);
+                    double bestAngle = 45.0 + (45.0 - (9.0 / 45.0) * transportResponse.getVelocity().length());
+                    log.info("Best angle: " + bestAngle);
                     return angle <= (int) bestAngle; // Фильтруем по углу (<= 90 градусов)
                 })
                 .min(Comparator.comparingDouble(Map.Entry::getValue)) // Находим минимальную дистанцию
@@ -72,7 +72,7 @@ public class BountyList {
                     Vector2D bountyVector = new Vector2D((double) (bounty.getX() - transportResponse.getX()), (double) (bounty.getY() - transportResponse.getY()));
                     double angle = vector2D.angleVectors(bountyVector); // Предполагается, что метод angleVectors реализован
                     //
-                    double bestAngle = 45.0 + (45.0 - (9.0 / 15.0) * transportResponse.getVelocity().length());
+                    double bestAngle = 45.0 + (45.0 - (9.0 / 45.0) * transportResponse.getVelocity().length());
                     log.debug("Best angle: " + bestAngle);
                     return angle <= (int) bestAngle; // Фильтруем по углу (<= 90 градусов)
                 })
