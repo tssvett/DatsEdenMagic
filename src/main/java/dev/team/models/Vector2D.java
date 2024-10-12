@@ -1,5 +1,7 @@
 package dev.team.models;
 
+import dev.team.game.workvector.Coordinate;
+
 public record Vector2D(Double x, Double y) {
 
     public Vector2D normalize() {
@@ -15,9 +17,6 @@ public record Vector2D(Double x, Double y) {
         return Math.sqrt(x * x + y * y);
     }
 
-    public double magnitude() {
-        return Math.sqrt(x * x + y * y);
-    }
 
 
 }

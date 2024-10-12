@@ -50,5 +50,4 @@ public class DrawableBounty extends DrawableObject {
         // Restore original font
         g.setFont(originalFont);
     }
-
 }

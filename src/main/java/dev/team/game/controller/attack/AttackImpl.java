@@ -1,5 +1,6 @@
 package dev.team.game.controller.attack;
 
+import dev.team.game.controller.attack.enemychoose.EnemyChooseImp;
 import dev.team.game.workvector.Coordinate;
 import dev.team.models.Enemy;
 import dev.team.models.TransportResponse;
@@ -17,7 +18,7 @@ public class AttackImpl implements Attack {
     private static final int COOLDOWN_MS = 5000;       // Время восстановления в миллисекундах
 
     /**
-     * @param myShip Выбранный кораблик
+     * @param myShip      Выбранный кораблик
      * @param enemiesList Список врагов, которых мы видим
      * @return Координаты для атаки
      */
@@ -33,25 +34,22 @@ public class AttackImpl implements Attack {
             log.info("Ковер {} перезаряжается", myShip.getId());
             return null; // Ковер не готов к атаке
         }
-
-        for (Enemy enemy : enemiesList) {
-            // Вычисляем расстояние до врага
-            double distance = calculateDistance(myShip.getX(), myShip.getY(), enemy.getX(), enemy.getY());
-
-            // Проверяем, находится ли враг в зоне поражения и в радиусе дальности
-            if (distance <= ATTACK_RANGE + ATTACK_RADIUS && "alive".equals(enemy.getStatus())) {
-                return new Coordinate(enemy.getX(), enemy.getY()); // Возвращаем координаты врага для атаки. Ебашим по врагу
-            }
+        EnemyChooseImp chooseEnemy = new EnemyChooseImp();
+        Enemy enemy = chooseEnemy.chooseEnemy(myShip,enemiesList);
+        if (enemy!=null) {
+            Coordinate coordinateAttack = new Coordinate(enemy.getX(), enemy.getY());
+            return coordinateAttack.coordinatePlusSpeed(enemy.getVelocity(), 0.4);// Возвращаем координаты врага для атаки. Ебашим по врагу
         }
 
-        log.info("Ковер {} не имеет врагов для атаки", myShip.getId());
+
+        log.info("Ковер {} не имеет врагов для атаки",myShip.getId());
         return null;
-    }
+}
 
 //    private Vector2D getVectorForAttack(Enemy enemy)
 
-    // Метод для вычисления расстояния между двумя точками
-    private double calculateDistance(int x1, int y1, int x2, int y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    }
+// Метод для вычисления расстояния между двумя точками
+private double calculateDistance(int x1, int y1, int x2, int y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
 }
