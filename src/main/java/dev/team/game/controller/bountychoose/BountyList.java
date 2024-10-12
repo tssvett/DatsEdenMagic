@@ -1,5 +1,6 @@
 package dev.team.game.controller.bountychoose;
 
+import dev.team.game.workvector.Coordinate;
 import dev.team.models.Bounty;
 import dev.team.models.TransportResponse;
 import lombok.Getter;
@@ -10,12 +11,17 @@ import java.util.Map;
 
 public class BountyList {
     private TransportResponse transportResponse;
-    // Метод для получения всех пар
     @Getter
     private Map<Bounty, Double> bountyDistanceMap;
 
-    public BountyList() {
+    public BountyList(TransportResponse transportResponse, ArrayList<Bounty> bountyList) {
         this.bountyDistanceMap = new HashMap<>();
+        this.transportResponse = transportResponse;
+        for (Bounty bounty : bountyList) {
+            Coordinate coordinateTransport= new Coordinate(transportResponse.getX(), transportResponse.getY());
+            Coordinate coordinateBounty= new Coordinate(bounty.getX(), bounty.getY());
+            addBountyDistance(bounty, Coordinate.distance(coordinateTransport, coordinateBounty));
+        }
     }
 
     // Метод для добавления новой пары
