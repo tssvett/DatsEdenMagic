@@ -20,7 +20,7 @@ public class Evasion {
         this.anomalyList = AnomalyList;
     }
 
-    private Vector2D getLifeline() {
+    public Vector2D getLifeline() {
         List<Vector2D> dangerVectors = findDangerVector();
         List <Vector2D> perpendicularVectors= new ArrayList<>();
         for (Vector2D vector : dangerVectors) {
