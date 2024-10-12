@@ -11,6 +11,6 @@ public class EnemyChooseImp implements EnemyChoose{
     @Override
     public Enemy chooseEnemy(TransportResponse transportResponse, List<Enemy> enemies) {
         EnemyList enemyList = new EnemyList(transportResponse,enemies);
-        return enemyList.getMinHealthEnemy();
+        return enemyList.getMinHealthEnemyWithinDistance(200);
     }
 }

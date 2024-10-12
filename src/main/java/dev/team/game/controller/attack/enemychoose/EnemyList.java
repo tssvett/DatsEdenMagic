@@ -37,14 +37,12 @@ public class EnemyList {
     }
 
 
-    // Метод для получения Enemy с минимальным здоровьем
-    public Enemy getMinHealthEnemy() {
-        if (enemyDistanceList.isEmpty()) {
-            return null; // Или выбросьте исключение, если список пуст
-        }
-
-        // Возвращаем Enemy с минимальным здоровьем
-        return enemyDistanceList.get(0).getKey();
+    public Enemy getMinHealthEnemyWithinDistance(double maxDistance) {
+        return enemyDistanceList.stream()
+                .filter(entry -> entry.getValue() <= maxDistance) // Фильтруем по дистанции
+                .min(Comparator.comparingInt(entry -> entry.getKey().getHealth())) // Находим минимальное здоровье
+                .map(Map.Entry::getKey) // Получаем Enemy
+                .orElse(null); // Если ничего не найдено, возвращаем null
     }
 
     @Override
